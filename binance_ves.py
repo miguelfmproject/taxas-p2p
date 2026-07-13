@@ -153,3 +153,111 @@ def filtrar_por_valor(anuncios, valor_buscado):
             validos.append(anuncio)
 
     return validos
+# =====================================================
+# PROCURA PREDOMINÂNCIA
+# =====================================================
+
+def procurar_predominancia(validos):
+
+    if len(validos) < 4:
+        return None
+
+    for i in range(len(validos) - 3):
+
+        g1 = inteiro_taxa(float(validos[i]["adv"]["price"]))
+        g2 = inteiro_taxa(float(validos[i + 1]["adv"]["price"]))
+        g3 = inteiro_taxa(float(validos[i + 2]["adv"]["price"]))
+
+        if g1 == g2 == g3:
+
+            return {
+                "grupo": g1,
+                "anuncio": validos[i + 3]
+            }
+
+    return None
+
+
+# =====================================================
+# BUSCA CONVERGENTE
+# =====================================================
+
+def busca_convergente(anuncios_filtrados):
+
+    historico = []
+
+    estimativa = estimativa_inicial(
+        anuncios_filtrados
+    )
+
+    grupo = inteiro_taxa(
+        estimativa
+    )
+
+    for tentativa in range(TENTATIVAS_MAXIMAS):
+
+        valor = valor_busca(grupo)
+
+        candidatos = filtrar_por_valor(
+            anuncios_filtrados,
+            valor
+        )
+
+        predominancia = procurar_predominancia(
+            candidatos
+        )
+
+        historico.append({
+
+            "tentativa": tentativa + 1,
+            "grupo_pesquisado": grupo,
+            "valor": valor,
+            "quantidade": len(candidatos),
+            "predominancia":
+                None if predominancia is None
+                else predominancia["grupo"]
+
+        })
+
+        if predominancia is None:
+            break
+
+        novo_grupo = predominancia["grupo"]
+
+        if novo_grupo == grupo:
+
+            anuncio = predominancia["anuncio"]
+
+            return {
+
+                "taxa": float(
+                    anuncio["adv"]["price"]
+                ),
+
+                "grupo": grupo,
+
+                "metodo": "CONVERGÊNCIA",
+
+                "anuncio": anuncio,
+
+                "historico": historico
+
+            }
+
+        grupo = novo_grupo
+
+    return {
+
+        "taxa": estimativa,
+
+        "grupo": inteiro_taxa(
+            estimativa
+        ),
+
+        "metodo": "MEDIANA",
+
+        "anuncio": None,
+
+        "historico": historico
+
+            }
