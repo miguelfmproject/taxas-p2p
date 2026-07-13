@@ -52,3 +52,13 @@ def atualizar_brl(compra, venda):
 
     aba.update("K8", [[compra]])
     aba.update("L8", [[venda]])
+
+
+def atualizar_status(status):
+
+    aba = conectar()
+
+    agora = datetime.now().strftime("%d/%m/%Y %H:%M:%S")
+
+    aba.update(CELL_LAST_UPDATE, [[agora]])
+    aba.update(CELL_STATUS, [[status]])
