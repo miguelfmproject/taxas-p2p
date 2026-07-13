@@ -124,22 +124,20 @@ def calcular_taxa(side):
     }
 
 
-# ==========================
-# TESTE COMPRA
-# ==========================
+# =====================================================
+# FUNÇÃO PRINCIPAL
+# =====================================================
 
-resultado_compra = calcular_taxa(1)
+def obter_taxas_brl():
 
-print("\nResultado final (Compra):")
-print(f"Taxa de compra: {resultado_compra['taxa']}")
-print(f"Filtro: {resultado_compra['filtro']}")
+    resultado_compra = calcular_taxa(1)
 
-# ==========================
-# TESTE VENDA
-# ==========================
+    resultado_venda = calcular_taxa(0)
 
-resultado_venda = calcular_taxa(0)
+    return {
 
-print("\nResultado final (Venda):")
-print(f"Taxa de venda: {resultado_venda['taxa']}")
-print(f"Filtro: {resultado_venda['filtro']}")
+        "buy": resultado_compra["taxa"],
+
+        "sell": resultado_venda["taxa"]
+
+    }
