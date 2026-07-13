@@ -2,47 +2,40 @@ import gspread
 
 from google.oauth2.service_account import Credentials
 
-from config import *
+from config import SHEET_ID
 
-
-# =====================================================
-# AUTENTICAÇÃO
-# =====================================================
 
 SCOPES = [
-    "https://www.googleapis.com/auth/spreadsheets"
+    "https://www.googleapis.com/auth/spreadsheets",
+    "https://www.googleapis.com/auth/drive"
 ]
 
-credentials = Credentials.from_service_account_file(
+
+credenciais = Credentials.from_service_account_file(
     "credentials/service_account.json",
     scopes=SCOPES
 )
 
-gc = gspread.authorize(credentials)
+cliente = gspread.authorize(credenciais)
 
-planilha = gc.open_by_key(SPREADSHEET_ID)
+planilha = cliente.open_by_key(SHEET_ID)
 
-aba = planilha.worksheet(SHEET_NAME)
+aba = planilha.sheet1
 
-
-# =====================================================
-# ESCREVER VES
-# =====================================================
 
 def atualizar_ves(compra, venda, metodo_compra, metodo_venda):
 
-    aba.update(CELL_VES_BUY, [[compra]])
-    aba.update(CELL_VES_SELL, [[venda]])
+    aba.update("I8", compra)
 
-    aba.update(CELL_VES_BUY_METHOD, [[metodo_compra]])
-    aba.update(CELL_VES_SELL_METHOD, [[metodo_venda]])
+    aba.update("J8", venda)
 
+    aba.update("I10", metodo_compra)
 
-# =====================================================
-# ESCREVER BRL
-# =====================================================
+    aba.update("J10", metodo_venda)
+
 
 def atualizar_brl(compra, venda):
 
-    aba.update(CELL_BRL_BUY, [[compra]])
-    aba.update(CELL_BRL_SELL, [[venda]])
+    aba.update("K8", compra)
+
+    aba.update("L8", venda)
