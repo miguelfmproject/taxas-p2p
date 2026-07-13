@@ -261,3 +261,22 @@ def busca_convergente(anuncios_filtrados):
         "historico": historico
 
             }
+def atualizar_planilha(
+    compra_ves,
+    venda_ves,
+    metodo_compra,
+    metodo_venda,
+    compra_brl,
+    venda_brl
+):
+
+    worksheet.update("I8", [[compra_ves]])
+    worksheet.update("J8", [[venda_ves]])
+
+    worksheet.update("I10", [[metodo_compra]])
+    worksheet.update("J10", [[metodo_venda]])
+
+    worksheet.update("K8", [[compra_brl]])
+    worksheet.update("L8", [[venda_brl]])
+
+    print("Planilha atualizada com sucesso.")
