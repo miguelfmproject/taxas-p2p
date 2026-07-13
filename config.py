@@ -22,3 +22,10 @@ CELL_VES_SELL_METHOD = "J10"
 # Bybit (BRL)
 CELL_BRL_BUY = "K8"
 CELL_BRL_SELL = "L8"
+
+# =====================================================
+# STATUS DA ATUALIZAÇÃO
+# =====================================================
+
+CELL_LAST_UPDATE = "K10"
+CELL_STATUS = "L10"
