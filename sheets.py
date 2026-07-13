@@ -59,7 +59,7 @@ def atualizar_status(status):
 
     aba = conectar()
 
-    agora = datetime.now().strftime("%d/%m/%Y %H:%M:%S")
+    agora = datetime.now(ZoneInfo("America/Sao_Paulo")).strftime("%d/%m/%Y %H:%M:%S")
 
     aba.update(CELL_LAST_UPDATE, [[agora]])
     aba.update(CELL_STATUS, [[status]])
