@@ -1,10 +1,9 @@
 from binance_ves import obter_taxas_ves
-
 from bybit_brl import obter_taxas_brl
-
 from sheets import atualizar_ves
-
 from sheets import atualizar_brl
+
+import traceback
 
 
 def main():
@@ -14,54 +13,50 @@ def main():
     print("=" * 60)
 
     print("\nBuscando Binance (VES)...")
-
     ves = obter_taxas_ves()
 
     print("\nBuscando Bybit (BRL)...")
-
     brl = obter_taxas_brl()
 
     print("\nAtualizando Google Sheets...")
 
-    atualizar_ves(
+    try:
 
-        ves["buy"],
+        atualizar_ves(
+            ves["buy"],
+            ves["sell"],
+            ves["buy_method"],
+            ves["sell_method"]
+        )
 
-        ves["sell"],
+        atualizar_brl(
+            brl["buy"],
+            brl["sell"]
+        )
 
-        ves["buy_method"],
+        print("\nGoogle Sheets atualizado com sucesso!")
 
-        ves["sell_method"]
+    except Exception:
 
-    )
+        print("\n==============================")
+        print("ERRO AO ATUALIZAR GOOGLE SHEETS")
+        print("==============================\n")
 
-    atualizar_brl(
+        traceback.print_exc()
 
-        brl["buy"],
-
-        brl["sell"]
-
-    )
+        raise
 
     print()
-
     print("=" * 60)
-
     print("ATUALIZAÇÃO CONCLUÍDA")
-
     print("=" * 60)
 
     print()
-
     print("VES BUY :", ves["buy"])
-
     print("VES SELL:", ves["sell"])
-
     print("BRL BUY :", brl["buy"])
-
     print("BRL SELL:", brl["sell"])
 
 
 if __name__ == "__main__":
-
     main()
