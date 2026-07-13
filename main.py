@@ -34,6 +34,8 @@ def main():
             brl["buy"],
             brl["sell"]
         )
+        
+        atualizar_status("OK")
 
         print("\nGoogle Sheets atualizado com sucesso!")
 
