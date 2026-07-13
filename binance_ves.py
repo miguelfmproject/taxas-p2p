@@ -388,12 +388,26 @@ def vender_usdt_ves():
 
     return resultado
 # =====================================================
-# EXECUÇÃO
+# FUNÇÃO PRINCIPAL
 # =====================================================
 
-compra = comprar_usdt_ves()
+def obter_taxas_ves():
 
-venda = vender_usdt_ves()
+    compra = comprar_usdt_ves()
+
+    venda = vender_usdt_ves()
+
+    return {
+
+        "buy": compra["taxa"],
+
+        "sell": venda["taxa"],
+
+        "buy_method": compra["metodo"],
+
+        "sell_method": venda["metodo"]
+
+    }
 
 
 # =====================================================
