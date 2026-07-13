@@ -18,7 +18,7 @@ credenciais = Credentials.from_service_account_file(
 
 cliente = gspread.authorize(credenciais)
 
-planilha = cliente.open_by_key(SHEET_ID)
+planilha = cliente.open_by_key(SPREADSHEET_ID)
 
 aba = planilha.sheet1
 
