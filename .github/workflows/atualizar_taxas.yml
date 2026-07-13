@@ -33,3 +33,4 @@ jobs:
       - name: Executar projeto
         run: |
           python main.py
+          
