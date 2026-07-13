@@ -46,6 +46,8 @@ def main():
         print("==============================\n")
 
         traceback.print_exc()
+        
+        atualizar_status("ERRO")
 
         raise
 
