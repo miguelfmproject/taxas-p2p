@@ -2,6 +2,7 @@ from binance_ves import obter_taxas_ves
 from bybit_brl import obter_taxas_brl
 from sheets import atualizar_ves
 from sheets import atualizar_brl
+from sheets import atualizar_status
 
 import traceback
 
