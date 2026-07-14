@@ -352,7 +352,6 @@ def comprar_usdt_ves():
 # =====================================================
 # VENDA USDT (SELL)
 # =====================================================
-
 def vender_usdt_ves():
 
     anuncios = buscar_anuncios(
@@ -399,19 +398,19 @@ def obter_taxas_ves():
 
     print("\n========== DEBUG BINANCE ==========")
 
-print("BUY")
-print("Método:", compra["metodo"])
-print("Grupo:", compra["grupo"])
-print("Taxa :", compra["taxa"])
+    print("BUY")
+    print("Método:", compra["metodo"])
+    print("Grupo:", compra["grupo"])
+    print("Taxa :", compra["taxa"])
 
-print()
+    print()
 
-print("SELL")
-print("Método:", venda["metodo"])
-print("Grupo:", venda["grupo"])
-print("Taxa :", venda["taxa"])
+    print("SELL")
+    print("Método:", venda["metodo"])
+    print("Grupo:", venda["grupo"])
+    print("Taxa :", venda["taxa"])
 
-print("===================================\n")
+    print("===================================\n")
 
     return {
 
