@@ -2,7 +2,7 @@ name: Atualizar Taxas P2P
 
 on:
   schedule:
-    - cron: "*/5 * * * *"
+    - cron: "0 */2 * * *"
 
   workflow_dispatch:
 
