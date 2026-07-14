@@ -397,6 +397,22 @@ def obter_taxas_ves():
 
     venda = vender_usdt_ves()
 
+    print("\n========== DEBUG BINANCE ==========")
+
+print("BUY")
+print("Método:", compra["metodo"])
+print("Grupo:", compra["grupo"])
+print("Taxa :", compra["taxa"])
+
+print()
+
+print("SELL")
+print("Método:", venda["metodo"])
+print("Grupo:", venda["grupo"])
+print("Taxa :", venda["taxa"])
+
+print("===================================\n")
+
     return {
 
         "buy": compra["taxa"],
