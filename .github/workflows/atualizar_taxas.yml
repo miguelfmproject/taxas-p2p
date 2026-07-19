@@ -1,9 +1,6 @@
 name: Atualizar Taxas P2P
 
 on:
-  schedule:
-    - cron: "0 */2 * * *"
-
   workflow_dispatch:
 
 jobs:
@@ -33,4 +30,3 @@ jobs:
       - name: Executar projeto
         run: |
           python main.py
-          
