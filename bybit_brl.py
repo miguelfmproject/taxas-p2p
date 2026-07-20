@@ -69,6 +69,15 @@ def calcular_taxa(side):
 
     print("Anúncios válidos:", len(validos))
 
+    # Remove anúncios fora da predominância
+validos = [
+    anuncio
+    for anuncio in validos
+    if int(float(anuncio["price"])) == predominancia
+]
+
+print("Após filtro de predominância:", len(validos))
+
     # Ordenação
     if side == 1:
         # Compra → menor preço primeiro
