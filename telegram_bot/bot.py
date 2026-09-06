@@ -1,19 +1,25 @@
 import os
 import requests
 import time
+import json
 
 
 TOKEN = os.getenv("TELEGRAM_BOT_TOKEN")
 BASE_URL = f"https://api.telegram.org/bot{TOKEN}"
 
 
-def enviar_mensagem(chat_id, texto):
+def enviar_mensagem(chat_id, texto, teclado=None):
+    dados = {
+        "chat_id": chat_id,
+        "text": texto
+    }
+
+    if teclado:
+        dados["reply_markup"] = json.dumps(teclado)
+
     requests.post(
         f"{BASE_URL}/sendMessage",
-        data={
-            "chat_id": chat_id,
-            "text": texto
-        }
+        data=dados
     )
 
 
@@ -45,10 +51,21 @@ def main():
             texto = mensagem.get("text", "")
 
             if texto == "/start":
+                teclado = {
+                    "keyboard": [
+                        [{"text": "🇧🇷➡️🇻🇪 Cotización Brasil → Venezuela"}],
+                        [{"text": "🇻🇪➡️🇧🇷 Cotización Venezuela → Brasil"}],
+                        [{"text": "👤 Hablar directamente con Miguel"}]
+                    ],
+                    "resize_keyboard": True,
+                    "one_time_keyboard": False
+                }
+
                 enviar_mensagem(
                     chat_id,
                     "¡Hola! 👋 Bienvenido a MiguelFM.\n\n"
-                    "Este es nuestro primer mensaje automático. 🤖"
+                    "¿Qué deseas hacer?",
+                    teclado
                 )
 
 
