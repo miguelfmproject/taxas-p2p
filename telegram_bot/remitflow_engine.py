@@ -21,8 +21,10 @@ def calcular_brasil_venezuela_dolar_final(reais, taxa_brl_ves, taxa_bcv):
         "reais": reais,
         "bolivares": bolivares,
         "dolar_bcv": dolar_bcv,
-  }
-  if __name__ == "__main__":
+    }
+
+
+if __name__ == "__main__":
     resultado = calcular_brasil_venezuela_dolar_final(
         reais="310",
         taxa_brl_ves="170.4",
