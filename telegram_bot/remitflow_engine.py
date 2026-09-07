@@ -9,6 +9,13 @@ def arredondar_para_cima(valor):
     return valor.quantize(Decimal("0.01"), rounding=ROUND_UP)
 
 
+def formatar_valor(valor):
+    valor = Decimal(str(valor))
+    valor = valor.quantize(Decimal("0.01"))
+
+    return f"{valor:,.2f}".replace(",", "X").replace(".", ",").replace("X", ".")
+
+
 def calcular_brasil_venezuela_dolar_final(reais, taxa_brl_ves, taxa_bcv):
     reais = Decimal(str(reais))
     taxa_brl_ves = Decimal(str(taxa_brl_ves))
