@@ -31,6 +31,19 @@ def calcular_brasil_venezuela_dolar_final(reais, taxa_brl_ves, taxa_bcv):
     }
 
 
+def gerar_mensagem_brasil_venezuela_dolar_final(resultado):
+    reais = formatar_valor(resultado["reais"])
+    bolivares = formatar_valor(resultado["bolivares"])
+    dolar_bcv = formatar_valor(resultado["dolar_bcv"])
+
+    return (
+        "------- *Brasil » Venezuela Equiv Dólar Final* -------\n\n"
+        f"Si envían {reais} Reais hacia Venezuela, "
+        f"llega {bolivares} Bolívares "
+        f"(equivalente a {dolar_bcv} Dólares BCV)."
+    )
+
+
 if __name__ == "__main__":
     resultado = calcular_brasil_venezuela_dolar_final(
         reais="310",
