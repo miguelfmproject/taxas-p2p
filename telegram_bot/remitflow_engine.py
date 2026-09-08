@@ -51,6 +51,9 @@ if __name__ == "__main__":
         taxa_bcv="596.7824"
     )
 
+    mensagem = gerar_mensagem_brasil_venezuela_dolar_final(resultado)
+
+    print(mensagem)
     print(formatar_valor("310"))
 print(formatar_valor("52824"))
 print(formatar_valor("88.51"))
