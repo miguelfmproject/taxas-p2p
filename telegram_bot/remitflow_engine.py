@@ -95,6 +95,19 @@ def gerar_mensagem_brasil_venezuela_dolar_a_receber(resultado):
     )
 
 
+def gerar_mensagem_brasil_venezuela_valor_bolivares_a_receber(resultado):
+    bolivares = formatar_valor(resultado["bolivares"])
+    dolar_bcv = formatar_valor(resultado["dolar_bcv"])
+    reais = formatar_valor(resultado["reais"])
+
+    return (
+        "------- *Brasil » Venezuela Valor Bolívares a Recibir* -------\n\n"
+        f"Para que llegue {bolivares} Bolívares a Venezuela "
+        f"(equivalente a {dolar_bcv} Dólares BCV), "
+        f"tienen que enviar {reais} Reais."
+    )
+
+
 if __name__ == "__main__":
     resultado = calcular_brasil_venezuela_dolar_final(
         reais="310",
