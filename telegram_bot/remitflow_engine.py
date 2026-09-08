@@ -15,7 +15,7 @@ def formatar_valor(valor):
 
     return f"{valor:,.2f}".replace(",", "X").replace(".", ",").replace("X", ".")
 
-
+#Calculadora 1
 def calcular_brasil_venezuela_dolar_final(reais, taxa_brl_ves, taxa_bcv):
     reais = Decimal(str(reais))
     taxa_brl_ves = Decimal(str(taxa_brl_ves))
@@ -30,7 +30,7 @@ def calcular_brasil_venezuela_dolar_final(reais, taxa_brl_ves, taxa_bcv):
         "dolar_bcv": dolar_bcv,
     }
 
-
+#Calculadora 2
 def calcular_brasil_venezuela_dolar_a_receber(
     dolares_bcv,
     taxa_brl_ves,
@@ -49,7 +49,7 @@ def calcular_brasil_venezuela_dolar_a_receber(
         "reais": reais,
     }
 
-
+#Calculadora 3
 def calcular_brasil_venezuela_valor_bolivares_a_receber(
     bolivares,
     taxa_brl_ves,
@@ -68,7 +68,26 @@ def calcular_brasil_venezuela_valor_bolivares_a_receber(
         "reais": reais,
     }
 
+#Calculadora 4
+def calcular_venezuela_brasil_dolar_bcv_a_reais(
+    dolares_bcv,
+    taxa_bcv,
+    taxa_ves_brl
+):
+    dolares_bcv = Decimal(str(dolares_bcv))
+    taxa_bcv = Decimal(str(taxa_bcv))
+    taxa_ves_brl = Decimal(str(taxa_ves_brl))
 
+    bolivares = arredondar_para_cima(dolares_bcv * taxa_bcv)
+    reais = bolivares / taxa_ves_brl
+
+    return {
+        "dolares_bcv": dolares_bcv,
+        "bolivares": bolivares,
+        "reais": reais,
+    }
+
+#Mensagem Calculadora 1
 def gerar_mensagem_brasil_venezuela_dolar_final(resultado):
     reais = formatar_valor(resultado["reais"])
     bolivares = formatar_valor(resultado["bolivares"])
@@ -81,7 +100,7 @@ def gerar_mensagem_brasil_venezuela_dolar_final(resultado):
         f"(equivalente a {dolar_bcv} Dólares BCV)."
     )
 
-
+#Mensagem Calculadora 2
 def gerar_mensagem_brasil_venezuela_dolar_a_receber(resultado):
     dolares_bcv = formatar_valor(resultado["dolares_bcv"])
     bolivares = formatar_valor(resultado["bolivares"])
@@ -94,7 +113,7 @@ def gerar_mensagem_brasil_venezuela_dolar_a_receber(resultado):
         f"tienen que enviar {reais} Reais."
     )
 
-
+#Mensagem Calculadora 3
 def gerar_mensagem_brasil_venezuela_valor_bolivares_a_receber(resultado):
     bolivares = formatar_valor(resultado["bolivares"])
     dolar_bcv = formatar_valor(resultado["dolar_bcv"])
