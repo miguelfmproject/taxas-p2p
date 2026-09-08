@@ -109,12 +109,40 @@ def gerar_mensagem_brasil_venezuela_valor_bolivares_a_receber(resultado):
 
 
 if __name__ == "__main__":
-    resultado = calcular_brasil_venezuela_dolar_final(
+    taxa_brl_ves = "171.2"
+    taxa_bcv = "814.6908"
+
+    # Calculadora 1
+    resultado1 = calcular_brasil_venezuela_dolar_final(
         reais="310",
-        taxa_brl_ves="170.4",
-        taxa_bcv="596.7824"
+        taxa_brl_ves=taxa_brl_ves,
+        taxa_bcv=taxa_bcv
     )
 
-    mensagem = gerar_mensagem_brasil_venezuela_dolar_final(resultado)
+    mensagem1 = gerar_mensagem_brasil_venezuela_dolar_final(resultado1)
 
-    print(mensagem)
+    print(mensagem1)
+    print()
+
+    # Calculadora 2
+    resultado2 = calcular_brasil_venezuela_dolar_a_receber(
+        dolares_bcv="64.91",
+        taxa_brl_ves=taxa_brl_ves,
+        taxa_bcv=taxa_bcv
+    )
+
+    mensagem2 = gerar_mensagem_brasil_venezuela_dolar_a_receber(resultado2)
+
+    print(mensagem2)
+    print()
+
+    # Calculadora 3
+    resultado3 = calcular_brasil_venezuela_valor_bolivares_a_receber(
+        bolivares="52824",
+        taxa_brl_ves=taxa_brl_ves,
+        taxa_bcv=taxa_bcv
+    )
+
+    mensagem3 = gerar_mensagem_brasil_venezuela_valor_bolivares_a_receber(resultado3)
+
+    print(mensagem3)
