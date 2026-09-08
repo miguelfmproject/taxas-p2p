@@ -264,7 +264,7 @@ if __name__ == "__main__":
     # ============================================================
 
     resultado4 = calcular_venezuela_brasil_dolar_bcv_a_reais(
-        dolares_bcv="60",
+        dolares_bcv="61.37",
         taxa_bcv=taxa_bcv,
         taxa_ves_brl=taxa_ves_brl
     )
@@ -280,7 +280,7 @@ if __name__ == "__main__":
     # ============================================================
 
     resultado5 = calcular_venezuela_brasil_monto_en_bolivares(
-        bolivares="48881.45",
+        bolivares="50000",
         taxa_bcv=taxa_bcv,
         taxa_ves_brl=taxa_ves_brl
     )
@@ -296,7 +296,7 @@ if __name__ == "__main__":
     # ============================================================
 
     resultado6 = calcular_venezuela_brasil_valor_a_receber_em_reais(
-        reais="241.45",
+        reais="245,82",
         taxa_ves_brl=taxa_ves_brl,
         taxa_bcv=taxa_bcv
     )
