@@ -50,6 +50,25 @@ def calcular_brasil_venezuela_dolar_a_receber(
     }
 
 
+def calcular_brasil_venezuela_valor_bolivares_a_receber(
+    bolivares,
+    taxa_brl_ves,
+    taxa_bcv
+):
+    bolivares = Decimal(str(bolivares))
+    taxa_brl_ves = Decimal(str(taxa_brl_ves))
+    taxa_bcv = Decimal(str(taxa_bcv))
+
+    dolar_bcv = bolivares / taxa_bcv
+    reais = arredondar_para_cima(bolivares / taxa_brl_ves)
+
+    return {
+        "bolivares": bolivares,
+        "dolar_bcv": dolar_bcv,
+        "reais": reais,
+    }
+
+
 def gerar_mensagem_brasil_venezuela_dolar_final(resultado):
     reais = formatar_valor(resultado["reais"])
     bolivares = formatar_valor(resultado["bolivares"])
