@@ -126,7 +126,7 @@ if __name__ == "__main__":
 
     # Calculadora 2
     resultado2 = calcular_brasil_venezuela_dolar_a_receber(
-        dolares_bcv="64.91",
+        dolares_bcv="65.14",
         taxa_brl_ves=taxa_brl_ves,
         taxa_bcv=taxa_bcv
     )
@@ -138,7 +138,7 @@ if __name__ == "__main__":
 
     # Calculadora 3
     resultado3 = calcular_brasil_venezuela_valor_bolivares_a_receber(
-        bolivares="52824",
+        bolivares="53072",
         taxa_brl_ves=taxa_brl_ves,
         taxa_bcv=taxa_bcv
     )
