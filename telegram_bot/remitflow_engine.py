@@ -296,7 +296,7 @@ if __name__ == "__main__":
     # ============================================================
 
     resultado6 = calcular_venezuela_brasil_valor_a_receber_em_reais(
-        reais="245,82",
+        reais="245.82",
         taxa_ves_brl=taxa_ves_brl,
         taxa_bcv=taxa_bcv
     )
