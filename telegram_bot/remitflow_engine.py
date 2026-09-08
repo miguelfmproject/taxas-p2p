@@ -106,6 +106,25 @@ def calcular_venezuela_brasil_monto_en_bolivares(
         "reais": reais,
     }
 
+#Calculadora 6
+def calcular_venezuela_brasil_valor_a_receber_em_reais(
+    reais,
+    taxa_ves_brl,
+    taxa_bcv
+):
+    reais = Decimal(str(reais))
+    taxa_ves_brl = Decimal(str(taxa_ves_brl))
+    taxa_bcv = Decimal(str(taxa_bcv))
+
+    bolivares = arredondar_para_cima(reais * taxa_ves_brl)
+    dolar_bcv = bolivares / taxa_bcv
+
+    return {
+        "reais": reais,
+        "bolivares": bolivares,
+        "dolar_bcv": dolar_bcv,
+    }
+
 #Mensagem Calculadora 1
 def gerar_mensagem_brasil_venezuela_dolar_final(resultado):
     reais = formatar_valor(resultado["reais"])
