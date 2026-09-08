@@ -191,7 +191,17 @@ def gerar_mensagem_venezuela_brasil_monto_en_bolivares(resultado):
     )
 
 #Mensagem Calculadora 6
+def gerar_mensagem_venezuela_brasil_valor_a_receber_em_reais(resultado):
+    reais = formatar_valor(resultado["reais"])
+    bolivares = formatar_valor(resultado["bolivares"])
+    dolar_bcv = formatar_valor(resultado["dolar_bcv"])
 
+    return (
+        "------- *Venezuela » Brasil Valor a recibir en Reais* -------\n\n"
+        f"Para que llegue {reais} Reais a Brasil, "
+        f"tienen que enviar desde Venezuela {bolivares} Bolívares "
+        f"(equivalente a {dolar_bcv} Dólares BCV)."
+    )
 
 
 if __name__ == "__main__":
