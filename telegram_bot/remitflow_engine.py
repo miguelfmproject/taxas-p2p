@@ -208,7 +208,7 @@ if __name__ == "__main__":
     # Taxas simuladas do Google Sheets
     taxa_brl_ves = "171.20"       # G10
     taxa_bcv = "814.6908"        # F19
-    taxa_ves_brl = "302.40"         # F13
+    taxa_ves_brl = "203.40"         # F13
 
     # ============================================================
     # CALCULADORA 1
