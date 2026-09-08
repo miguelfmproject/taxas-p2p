@@ -205,10 +205,16 @@ def gerar_mensagem_venezuela_brasil_valor_a_receber_em_reais(resultado):
 
 
 if __name__ == "__main__":
-    taxa_brl_ves = "171.2"
-    taxa_bcv = "814.6908"
+    # Taxas simuladas do Google Sheets
+    taxa_brl_ves = "171.20"       # G10
+    taxa_bcv = "814.6908"        # F19
+    taxa_ves_brl = "302.40"         # F13
 
-    # Calculadora 1
+    # ============================================================
+    # CALCULADORA 1
+    # Brasil » Venezuela — Equiv Dólar Final
+    # ============================================================
+
     resultado1 = calcular_brasil_venezuela_dolar_final(
         reais="310",
         taxa_brl_ves=taxa_brl_ves,
@@ -220,9 +226,13 @@ if __name__ == "__main__":
     print(mensagem1)
     print()
 
-    # Calculadora 2
+    # ============================================================
+    # CALCULADORA 2
+    # Brasil » Venezuela — Equiv Dólar a recibir
+    # ============================================================
+
     resultado2 = calcular_brasil_venezuela_dolar_a_receber(
-        dolares_bcv="65.14",
+        dolares_bcv="64.91",
         taxa_brl_ves=taxa_brl_ves,
         taxa_bcv=taxa_bcv
     )
@@ -232,9 +242,13 @@ if __name__ == "__main__":
     print(mensagem2)
     print()
 
-    # Calculadora 3
+    # ============================================================
+    # CALCULADORA 3
+    # Brasil » Venezuela — Valor Bolívares a Recibir
+    # ============================================================
+
     resultado3 = calcular_brasil_venezuela_valor_bolivares_a_receber(
-        bolivares="53072",
+        bolivares="52824",
         taxa_brl_ves=taxa_brl_ves,
         taxa_bcv=taxa_bcv
     )
@@ -242,3 +256,51 @@ if __name__ == "__main__":
     mensagem3 = gerar_mensagem_brasil_venezuela_valor_bolivares_a_receber(resultado3)
 
     print(mensagem3)
+    print()
+
+    # ============================================================
+    # CALCULADORA 4
+    # Venezuela » Brasil — Equiv Dólar BCV a Reais
+    # ============================================================
+
+    resultado4 = calcular_venezuela_brasil_dolar_bcv_a_reais(
+        dolares_bcv="60",
+        taxa_bcv=taxa_bcv,
+        taxa_ves_brl=taxa_ves_brl
+    )
+
+    mensagem4 = gerar_mensagem_venezuela_brasil_dolar_bcv_a_reais(resultado4)
+
+    print(mensagem4)
+    print()
+
+    # ============================================================
+    # CALCULADORA 5
+    # Venezuela » Brasil — Monto en Bolívares
+    # ============================================================
+
+    resultado5 = calcular_venezuela_brasil_monto_en_bolivares(
+        bolivares="48881.45",
+        taxa_bcv=taxa_bcv,
+        taxa_ves_brl=taxa_ves_brl
+    )
+
+    mensagem5 = gerar_mensagem_venezuela_brasil_monto_en_bolivares(resultado5)
+
+    print(mensagem5)
+    print()
+
+    # ============================================================
+    # CALCULADORA 6
+    # Venezuela » Brasil — Valor a recibir en Reais
+    # ============================================================
+
+    resultado6 = calcular_venezuela_brasil_valor_a_receber_em_reais(
+        reais="241.45",
+        taxa_ves_brl=taxa_ves_brl,
+        taxa_bcv=taxa_bcv
+    )
+
+    mensagem6 = gerar_mensagem_venezuela_brasil_valor_a_receber_em_reais(resultado6)
+
+    print(mensagem6)
