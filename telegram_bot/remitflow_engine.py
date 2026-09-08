@@ -164,6 +164,25 @@ def gerar_mensagem_brasil_venezuela_valor_bolivares_a_receber(resultado):
         f"tienen que enviar {reais} Reais."
     )
 
+#Mensagem Calculadora 4
+def gerar_mensagem_venezuela_brasil_dolar_bcv_a_reais(resultado):
+    dolares_bcv = formatar_valor(resultado["dolares_bcv"])
+    bolivares = formatar_valor(resultado["bolivares"])
+    reais = formatar_valor(resultado["reais"])
+
+    return (
+        "------- *Venezuela » Brasil Equiv Dólar BCV a Reais* -------\n\n"
+        f"Si envían el equivalente a {dolares_bcv} Dólares BCV "
+        f"({bolivares} Bolívares) desde Venezuela, "
+        f"llega a Brasil {reais} Reais."
+    )
+
+#Mensagem Calculadora 5
+
+
+#Mensagem Calculadora 6
+
+
 
 if __name__ == "__main__":
     taxa_brl_ves = "171.2"
