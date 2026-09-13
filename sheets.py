@@ -63,3 +63,25 @@ def atualizar_status(status):
 
     aba.update(CELL_LAST_UPDATE, [[agora]])
     aba.update(CELL_STATUS, [[status]])
+
+#==============================
+#Test de leitura info sheets células (temporal)
+#==============================
+def ler_taxas_remitflow():
+
+    aba = conectar()
+
+    valores = aba.batch_get(
+        ["G10", "F13", "F19"],
+        value_render_option="UNFORMATTED_VALUE"
+    )
+
+    taxa_brl_ves = Decimal(str(valores[0][0][0]))
+    taxa_ves_brl = Decimal(str(valores[1][0][0]))
+    taxa_bcv = Decimal(str(valores[2][0][0]))
+
+    return {
+        "taxa_brl_ves": taxa_brl_ves,
+        "taxa_ves_brl": taxa_ves_brl,
+        "taxa_bcv": taxa_bcv,
+    }
