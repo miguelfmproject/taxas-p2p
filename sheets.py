@@ -1,3 +1,6 @@
+#Test leitura Sheets células (temporal)
+from decimal import Decimal
+#===========================
 from datetime import datetime
 from zoneinfo import ZoneInfo
 from config import CELL_LAST_UPDATE, CELL_STATUS
