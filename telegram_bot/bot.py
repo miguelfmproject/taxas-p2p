@@ -140,11 +140,11 @@ def pedir_valor(chat_id, calculadora):
 
     elif calculadora == 2:
         texto = (
-            "💵 *Brasil » Venezuela Equiv Dólar a recibir*\n\n"
+            "💵 *Brasil » Venezuela Dólares BCV a recibir*\n\n"
             "Escribe el monto en *Dólares BCV* que deseas recibir en Venezuela."
         )
 
-    else:
+    elif calculadora == 3:
         texto = (
             "🇻🇪 *Brasil » Venezuela Bolívares a recibir*\n\n"
             "Escribe el monto en *Bolívares* que deseas que llegue a Venezuela."
@@ -155,21 +155,24 @@ def pedir_valor(chat_id, calculadora):
             "💵 *Venezuela » Brasil Dólares BCV a Reais*\n\n"
             "Escribe el monto en *Dólares BCV* que deseas convertir a Reais."
         )
-    
+
     elif calculadora == 5:
         texto = (
             "🇻🇪 *Venezuela » Brasil Bolívares a enviar*\n\n"
             "Escribe el monto en *Bolívares* que deseas enviar desde Venezuela."
         )
-    
-    else:
+
+    elif calculadora == 6:
         texto = (
             "🇧🇷 *Venezuela » Brasil Reais a recibir*\n\n"
             "Escribe el monto en *Reais* que deseas recibir en Brasil."
         )
-        
-    enviar_mensagem(chat_id, texto)
 
+    else:
+        clientes.pop(chat_id, None)
+        return
+
+    enviar_mensagem(chat_id, texto)
 
 # ============================================================
 # PROCESSAMENTO DAS CALCULADORAS
