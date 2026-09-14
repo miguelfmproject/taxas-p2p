@@ -93,9 +93,9 @@ def teclado_inicio():
 def teclado_brasil_venezuela():
     return {
         "keyboard": [
-            [{"text": "💵 Equiv. Dólar Final"}],
-            [{"text": "💵 Dólar a recibir"}],
-            [{"text": "🇻🇪 Bolívares a recibir"}],
+            [{"text": "💵 Reais a enviar para VZLA"}],
+            [{"text": "💵 Dólar BCV a recibir en VZLA"}],
+            [{"text": "🇻🇪 Bolívares a recibir en VZLA"}],
             [{"text": "🔙 Volver"}]
         ],
         "resize_keyboard": True,
@@ -115,14 +115,14 @@ def pedir_valor(chat_id, calculadora):
 
     if calculadora == 1:
         texto = (
-            "💵 *Brasil » Venezuela Equiv Dólar Final*\n\n"
-            "Escribe el monto en *Reais* que deseas enviar."
+            "💵 *Brasil » Venezuela Reais a enviar*\n\n"
+            "Escribe el monto en *Reais* que deseas enviar para Venezuela."
         )
 
     elif calculadora == 2:
         texto = (
             "💵 *Brasil » Venezuela Equiv Dólar a recibir*\n\n"
-            "Escribe el monto en *Dólares BCV* que deseas recibir."
+            "Escribe el monto en *Dólares BCV* que deseas recibir en Venezuela."
         )
 
     else:
