@@ -5,9 +5,15 @@ from telegram_bot.remitflow_engine import (
     calcular_brasil_venezuela_dolar_final,
     calcular_brasil_venezuela_dolar_a_receber,
     calcular_brasil_venezuela_valor_bolivares_a_receber,
+    calcular_venezuela_brasil_dolar_bcv_a_reais,
+    calcular_venezuela_brasil_monto_en_bolivares,
+    calcular_venezuela_brasil_valor_a_receber_em_reais,
     gerar_mensagem_brasil_venezuela_dolar_final,
     gerar_mensagem_brasil_venezuela_dolar_a_receber,
     gerar_mensagem_brasil_venezuela_valor_bolivares_a_receber,
+    gerar_mensagem_venezuela_brasil_dolar_bcv_a_reais,
+    gerar_mensagem_venezuela_brasil_monto_en_bolivares,
+    gerar_mensagem_venezuela_brasil_valor_a_receber_em_reais,
 )
 
 from sheets import ler_taxas_remitflow
