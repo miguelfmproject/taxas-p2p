@@ -196,7 +196,7 @@ def processar_calculo(chat_id, texto):
         taxa_brl_ves, taxa_ves_brl, taxa_bcv = ler_taxas()
 
         # ----------------------------------------------------
-        # CALCULADORA 1
+        # BRASIL → VENEZUELA
         # ----------------------------------------------------
 
         if calculadora == 1:
@@ -211,10 +211,6 @@ def processar_calculo(chat_id, texto):
                 resultado
             )
 
-        # ----------------------------------------------------
-        # CALCULADORA 2
-        # ----------------------------------------------------
-
         elif calculadora == 2:
 
             resultado = calcular_brasil_venezuela_dolar_a_receber(
@@ -226,10 +222,6 @@ def processar_calculo(chat_id, texto):
             mensagem = gerar_mensagem_brasil_venezuela_dolar_a_receber(
                 resultado
             )
-
-        # ----------------------------------------------------
-        # CALCULADORA 3
-        # ----------------------------------------------------
 
         elif calculadora == 3:
 
@@ -245,6 +237,46 @@ def processar_calculo(chat_id, texto):
                 )
             )
 
+        # ----------------------------------------------------
+        # VENEZUELA → BRASIL
+        # ----------------------------------------------------
+
+        elif calculadora == 4:
+
+            resultado = calcular_venezuela_brasil_dolar_bcv_a_reais(
+                dolares_bcv=valor,
+                taxa_bcv=taxa_bcv,
+                taxa_ves_brl=taxa_ves_brl
+            )
+
+            mensagem = gerar_mensagem_venezuela_brasil_dolar_bcv_a_reais(
+                resultado
+            )
+
+        elif calculadora == 5:
+
+            resultado = calcular_venezuela_brasil_monto_en_bolivares(
+                bolivares=valor,
+                taxa_bcv=taxa_bcv,
+                taxa_ves_brl=taxa_ves_brl
+            )
+
+            mensagem = gerar_mensagem_venezuela_brasil_monto_en_bolivares(
+                resultado
+            )
+
+        elif calculadora == 6:
+
+            resultado = calcular_venezuela_brasil_valor_a_receber_em_reais(
+                reais=valor,
+                taxa_ves_brl=taxa_ves_brl,
+                taxa_bcv=taxa_bcv
+            )
+
+            mensagem = gerar_mensagem_venezuela_brasil_valor_a_receber_em_reais(
+                resultado
+            )
+
         else:
             return False
 
@@ -252,10 +284,15 @@ def processar_calculo(chat_id, texto):
         # ENVIAR RESULTADO
         # ----------------------------------------------------
 
+        if calculadora <= 3:
+            teclado = teclado_brasil_venezuela()
+        else:
+            teclado = teclado_venezuela_brasil()
+
         enviar_mensagem(
             chat_id,
             mensagem,
-            teclado_brasil_venezuela()
+            teclado
         )
 
         clientes.pop(chat_id, None)
