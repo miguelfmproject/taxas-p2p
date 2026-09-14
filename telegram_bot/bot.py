@@ -150,6 +150,24 @@ def pedir_valor(chat_id, calculadora):
             "Escribe el monto en *Bolívares* que deseas que llegue a Venezuela."
         )
 
+    elif calculadora == 4:
+        texto = (
+            "💵 *Venezuela » Brasil Dólares BCV a Reais*\n\n"
+            "Escribe el monto en *Dólares BCV* que deseas convertir a Reais."
+        )
+    
+    elif calculadora == 5:
+        texto = (
+            "🇻🇪 *Venezuela » Brasil Bolívares a enviar*\n\n"
+            "Escribe el monto en *Bolívares* que deseas enviar desde Venezuela."
+        )
+    
+    else:
+        texto = (
+            "🇧🇷 *Venezuela » Brasil Reais a recibir*\n\n"
+            "Escribe el monto en *Reais* que deseas recibir en Brasil."
+        )
+        
     enviar_mensagem(chat_id, texto)
 
 
