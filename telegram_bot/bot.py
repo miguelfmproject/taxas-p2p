@@ -109,6 +109,19 @@ def teclado_brasil_venezuela():
     }
 
 
+def teclado_venezuela_brasil():
+    return {
+        "keyboard": [
+            [{"text": "💵 Dólares BCV a Reais"}],
+            [{"text": "🇻🇪 Bolívares a enviar"}],
+            [{"text": "🇧🇷 Reais a recibir"}],
+            [{"text": "🔙 Volver"}]
+        ],
+        "resize_keyboard": True,
+        "one_time_keyboard": False
+    }
+
+
 # ============================================================
 # MENSAGENS DE ORIENTAÇÃO
 # ============================================================
