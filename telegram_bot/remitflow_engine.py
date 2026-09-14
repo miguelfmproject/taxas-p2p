@@ -132,9 +132,9 @@ def gerar_mensagem_brasil_venezuela_dolar_final(resultado):
     dolar_bcv = formatar_valor(resultado["dolar_bcv"])
 
     return (
-        "------- *Brasil » Venezuela Equiv Dólar Final* -------\n\n"
+        "------- *Brasil » Venezuela Reais a enviar* -------\n\n"
         f"Si envían {reais} Reais hacia Venezuela, "
-        f"llega {bolivares} Bolívares "
+        f"llegan {bolivares} Bolívares "
         f"(equivalente a {dolar_bcv} Dólares BCV)."
     )
 
@@ -159,8 +159,8 @@ def gerar_mensagem_brasil_venezuela_valor_bolivares_a_receber(resultado):
 
     return (
         "------- *Brasil » Venezuela Valor Bolívares a Recibir* -------\n\n"
-        f"Para que llegue {bolivares} Bolívares a Venezuela "
-        f"(equivalente a {dolar_bcv} Dólares BCV), "
+        f"Para que lleguen {bolivares} Bolívares a Venezuela "
+        f"(equivalentes a {dolar_bcv} Dólares BCV), "
         f"tienen que enviar {reais} Reais."
     )
 
@@ -171,7 +171,7 @@ def gerar_mensagem_venezuela_brasil_dolar_bcv_a_reais(resultado):
     reais = formatar_valor(resultado["reais"])
 
     return (
-        "------- *Venezuela » Brasil Equiv Dólar BCV a Reais* -------\n\n"
+        "------- *Venezuela » Brasil Equiv Dólar BCV a enviar* -------\n\n"
         f"Si envían el equivalente a {dolares_bcv} Dólares BCV "
         f"({bolivares} Bolívares) desde Venezuela, "
         f"llega a Brasil {reais} Reais."
@@ -186,7 +186,7 @@ def gerar_mensagem_venezuela_brasil_monto_en_bolivares(resultado):
     return (
         "------- *Venezuela » Brasil Monto en Bolívares* -------\n\n"
         f"Si envían {bolivares} Bolívares "
-        f"(equivalente a {dolar_bcv} Dólares BCV) desde Venezuela, "
+        f"(equivalentes a {dolar_bcv} Dólares BCV) desde Venezuela, "
         f"llega a Brasil {reais} Reais."
     )
 
@@ -198,9 +198,9 @@ def gerar_mensagem_venezuela_brasil_valor_a_receber_em_reais(resultado):
 
     return (
         "------- *Venezuela » Brasil Valor a recibir en Reais* -------\n\n"
-        f"Para que llegue {reais} Reais a Brasil, "
+        f"Para que lleguen {reais} Reais a Brasil, "
         f"tienen que enviar desde Venezuela {bolivares} Bolívares "
-        f"(equivalente a {dolar_bcv} Dólares BCV)."
+        f"(equivalentes a {dolar_bcv} Dólares BCV)."
     )
 
 
