@@ -418,6 +418,124 @@ def processar_mensagem(chat_id, texto):
     # --------------------------------------------------------
 
     if texto == "🔙 Volver":
+def processar_mensagem(chat_id, texto):
+
+    # ----------------------------------------------------
+    # CLIENTE JÁ ESTÁ EM UMA CALCULADORA
+    # ----------------------------------------------------
+
+    if chat_id in clientes:
+
+        if clientes[chat_id]["etapa"] == "aguardando_valor":
+            return processar_calculo(chat_id, texto)
+
+    # ----------------------------------------------------
+    # MENU INICIAL
+    # ----------------------------------------------------
+
+    if texto == "/start":
+
+        clientes.pop(chat_id, None)
+
+        enviar_mensagem(
+            chat_id,
+            "¡Hola! 👋 Bienvenido a MiguelFM.\n\n"
+            "¿Qué deseas hacer?",
+            teclado_inicio()
+        )
+
+        return True
+
+    # ----------------------------------------------------
+    # BRASIL → VENEZUELA
+    # ----------------------------------------------------
+
+    if texto == "🇧🇷➡️🇻🇪 Cotización Brasil → Venezuela":
+
+        clientes.pop(chat_id, None)
+
+        enviar_mensagem(
+            chat_id,
+            "🇧🇷➡️🇻🇪 *Brasil → Venezuela*\n\n"
+            "Selecciona el tipo de cotización:",
+            teclado_brasil_venezuela()
+        )
+
+        return True
+
+    if texto == "💵 Reais a enviar para VZLA":
+
+        pedir_valor(chat_id, 1)
+
+        return True
+
+    if texto == "💵 Dólar BCV a recibir en VZLA":
+
+        pedir_valor(chat_id, 2)
+
+        return True
+
+    if texto == "🇻🇪 Bolívares a recibir en VZLA":
+
+        pedir_valor(chat_id, 3)
+
+        return True
+
+    # ----------------------------------------------------
+    # VENEZUELA → BRASIL
+    # ----------------------------------------------------
+
+    if texto == "🇻🇪➡️🇧🇷 Cotización Venezuela → Brasil":
+
+        clientes.pop(chat_id, None)
+
+        enviar_mensagem(
+            chat_id,
+            "🇻🇪➡️🇧🇷 *Venezuela → Brasil*\n\n"
+            "Selecciona el tipo de cotización:",
+            teclado_venezuela_brasil()
+        )
+
+        return True
+
+    if texto == "💵 Dólares BCV a Reais":
+
+        pedir_valor(chat_id, 4)
+
+        return True
+
+    if texto == "🇻🇪 Bolívares a enviar":
+
+        pedir_valor(chat_id, 5)
+
+        return True
+
+    if texto == "🇧🇷 Reais a recibir":
+
+        pedir_valor(chat_id, 6)
+
+        return True
+
+    # ----------------------------------------------------
+    # FALAR COM MIGUEL
+    # ----------------------------------------------------
+
+    if texto == "👤 Hablar directamente con Miguel":
+
+        clientes.pop(chat_id, None)
+
+        enviar_mensagem(
+            chat_id,
+            "👤 Para hablar directamente con Miguel, por favor espera las instrucciones de contacto."
+        )
+
+        return True
+
+    # ----------------------------------------------------
+    # VOLVER
+    # ----------------------------------------------------
+
+    if texto == "🔙 Volver":
 
         clientes.pop(chat_id, None)
 
@@ -428,6 +546,10 @@ def processar_mensagem(chat_id, texto):
         )
 
         return True
+
+    # ----------------------------------------------------
+    # MENSAGEM NÃO RECONHECIDA
+    # ----------------------------------------------------
 
     return False
 
