@@ -319,107 +319,6 @@ def processar_calculo(chat_id, texto):
 
 def processar_mensagem(chat_id, texto):
 
-    # --------------------------------------------------------
-    # SE ESTÁ AGUARDANDO UM VALOR
-    # --------------------------------------------------------
-
-    if chat_id in clientes:
-        if clientes[chat_id]["etapa"] == "aguardando_valor":
-            return processar_calculo(chat_id, texto)
-
-    # --------------------------------------------------------
-    # /start
-    # --------------------------------------------------------
-
-    if texto == "/start":
-
-        clientes.pop(chat_id, None)
-
-        enviar_mensagem(
-            chat_id,
-            "¡Hola! 👋 Bienvenido a MiguelFM.\n\n"
-            "¿Qué deseas hacer?",
-            teclado_inicio()
-        )
-
-        return True
-
-    # --------------------------------------------------------
-    # BRASIL → VENEZUELA
-    # --------------------------------------------------------
-
-    if texto == "🇧🇷➡️🇻🇪 Cotización Brasil → Venezuela":
-
-        enviar_mensagem(
-            chat_id,
-            "🇧🇷➡️🇻🇪 *Brasil → Venezuela*\n\n"
-            "Selecciona el tipo de cotización:",
-            teclado_brasil_venezuela()
-        )
-
-        return True
-
-    # --------------------------------------------------------
-    # CALCULADORA 1
-    # --------------------------------------------------------
-
-    if texto == "💵 Equiv. Dólar Final":
-
-        pedir_valor(chat_id, 1)
-        return True
-
-    # --------------------------------------------------------
-    # CALCULADORA 2
-    # --------------------------------------------------------
-
-    if texto == "💵 Dólar a recibir":
-
-        pedir_valor(chat_id, 2)
-        return True
-
-    # --------------------------------------------------------
-    # CALCULADORA 3
-    # --------------------------------------------------------
-
-    if texto == "🇻🇪 Bolívares a recibir":
-
-        pedir_valor(chat_id, 3)
-        return True
-
-    # --------------------------------------------------------
-    # VENEZUELA → BRASIL
-    # --------------------------------------------------------
-
-    if texto == "🇻🇪➡️🇧🇷 Cotización Venezuela → Brasil":
-
-        enviar_mensagem(
-            chat_id,
-            "🇻🇪➡️🇧🇷 Esta opción estará disponible próximamente."
-        )
-
-        return True
-
-    # --------------------------------------------------------
-    # FALAR COM MIGUEL
-    # --------------------------------------------------------
-
-    if texto == "👤 Hablar directamente con Miguel":
-
-        enviar_mensagem(
-            chat_id,
-            "👤 Para hablar directamente con Miguel, "
-            "por favor espera las instrucciones de contacto."
-        )
-
-        return True
-
-    # --------------------------------------------------------
-    # VOLTAR
-    # --------------------------------------------------------
-
-    if texto == "🔙 Volver":
-def processar_mensagem(chat_id, texto):
-
     # ----------------------------------------------------
     # CLIENTE JÁ ESTÁ EM UMA CALCULADORA
     # ----------------------------------------------------
@@ -526,13 +425,14 @@ def processar_mensagem(chat_id, texto):
 
         enviar_mensagem(
             chat_id,
-            "👤 Para hablar directamente con Miguel, por favor espera las instrucciones de contacto."
+            "👤 Para hablar directamente con Miguel, "
+            "por favor espera las instrucciones de contacto."
         )
 
         return True
 
     # ----------------------------------------------------
-    # VOLVER
+    # VOLTAR
     # ----------------------------------------------------
 
     if texto == "🔙 Volver":
