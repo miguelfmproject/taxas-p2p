@@ -1,5 +1,7 @@
 #Test leitura Sheets células (temporal)
 from decimal import Decimal
+import os
+import json
 #===========================
 from datetime import datetime
 from zoneinfo import ZoneInfo
@@ -20,10 +22,12 @@ def conectar():
 
     try:
 
-        credenciais = Credentials.from_service_account_file(
-            "credentials/service_account.json",
-            scopes=SCOPES
-        )
+        credenciais_json = os.environ["GOOGLE_SERVICE_ACCOUNT_JSON"]
+
+credenciais = Credentials.from_service_account_info(
+    json.loads(credenciais_json),
+    scopes=SCOPES
+)
 
         cliente = gspread.authorize(credenciais)
 
