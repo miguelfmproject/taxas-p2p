@@ -24,7 +24,7 @@ def conectar():
 
         credenciais_json = os.environ["GOOGLE_SERVICE_ACCOUNT_JSON"]
 
-credenciais = Credentials.from_service_account_info(
+        credenciais = Credentials.from_service_account_info(
     json.loads(credenciais_json),
     scopes=SCOPES
 )
