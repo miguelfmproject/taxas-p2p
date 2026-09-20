@@ -22,12 +22,21 @@ def conectar():
 
     try:
 
-        credenciais_json = os.environ["GOOGLE_SERVICE_ACCOUNT_JSON"]
+        credenciais_json = os.environ.get("GOOGLE_SERVICE_ACCOUNT_JSON")
 
-        credenciais = Credentials.from_service_account_info(
-            json.loads(credenciais_json),
-            scopes=SCOPES
-        )
+        if credenciais_json:
+
+            credenciais = Credentials.from_service_account_info(
+                json.loads(credenciais_json),
+                scopes=SCOPES
+            )
+
+        else:
+
+            credenciais = Credentials.from_service_account_file(
+                "credentials/service_account.json",
+                scopes=SCOPES
+            )
 
         cliente = gspread.authorize(credenciais)
 
