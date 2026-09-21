@@ -124,9 +124,9 @@ def teclado_brasil_venezuela():
 def teclado_venezuela_brasil():
     return {
         "keyboard": [
-            [{"text": "💵 Dólares BCV a Reais"}],
-            [{"text": "🇻🇪 Bolívares a enviar"}],
-            [{"text": "🇧🇷 Reais a recibir"}],
+            [{"text": "💵 Equivalente en Dólares BCV a convertir en Reais"}],
+            [{"text": "🇻🇪 Bolívares a enviar desde Vzla"}],
+            [{"text": "🇧🇷 Reais a recibir en Brasil"}],
             [{"text": "🔙 Volver"}]
         ],
         "resize_keyboard": True,
@@ -154,37 +154,37 @@ def pedir_valor(chat_id, calculadora):
     if calculadora == 1:
         texto = (
             "💵 *Brasil » Venezuela Reais a enviar*\n\n"
-            "Escribe el monto en *Reais* que deseas enviar para Venezuela."
+            "Escribe ÚNICAMENTE el monto en *Reais* que deseas enviar para Venezuela."
         )
 
     elif calculadora == 2:
         texto = (
             "💵 *Brasil » Venezuela Dólares BCV a recibir*\n\n"
-            "Escribe el monto en *Dólares BCV* que deseas recibir en Venezuela."
+            "Escribe ÚNICAMENTE el monto en *Dólares BCV* que deseas recibir en Venezuela."
         )
 
     elif calculadora == 3:
         texto = (
             "🇻🇪 *Brasil » Venezuela Bolívares a recibir*\n\n"
-            "Escribe el monto en *Bolívares* que deseas que llegue a Venezuela."
+            "Escribe ÚNICAMENTE el monto en *Bolívares* que deseas que llegue a Venezuela."
         )
 
     elif calculadora == 4:
         texto = (
             "💵 *Venezuela » Brasil Dólares BCV a Reais*\n\n"
-            "Escribe el monto en *Dólares BCV* que deseas convertir a Reais."
+            "Escribe ÚNICAMENTE el monto en *Dólares BCV* que deseas convertir a Reais."
         )
 
     elif calculadora == 5:
         texto = (
             "🇻🇪 *Venezuela » Brasil Bolívares a enviar*\n\n"
-            "Escribe el monto en *Bolívares* que deseas enviar desde Venezuela."
+            "Escribe ÚNICAMENTE el monto en *Bolívares* que deseas enviar desde Venezuela."
         )
 
     elif calculadora == 6:
         texto = (
             "🇧🇷 *Venezuela » Brasil Reais a recibir*\n\n"
-            "Escribe el monto en *Reais* que deseas recibir en Brasil."
+            "Escribe ÚNICAMENTE el monto en *Reais* que deseas recibir en Brasil."
         )
 
     else:
@@ -350,7 +350,7 @@ def processar_mensagem(chat_id, texto):
 
         enviar_mensagem(
             chat_id,
-            "¡Hola! 👋 Bienvenido a MiguelFM.\n\n"
+            "¡Hola! 👋 Bienvenido al bot secuencial automatizado de 🔰MiguelFM Remesas.\n\n"
             "¿Qué deseas hacer?",
             teclado_inicio()
         )
@@ -422,7 +422,7 @@ def processar_mensagem(chat_id, texto):
         enviar_mensagem(
             chat_id,
             "👤 Para hablar directamente con Miguel, "
-            "por favor espera las instrucciones de contacto."
+            "toca en el siguiente enlace:"
         )
 
         return True
