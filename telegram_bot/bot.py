@@ -422,7 +422,7 @@ def processar_mensagem(chat_id, texto):
         enviar_mensagem(
             chat_id,
             "👤 Para hablar directamente con Miguel, "
-            "toca en el siguiente enlace:"
+            "toca en el siguiente enlace: https://wa.me/qr/BYH3M7JCHI7DA1"
         )
 
         return True
