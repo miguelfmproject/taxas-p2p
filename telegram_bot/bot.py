@@ -96,6 +96,18 @@ def teclado_inicio():
     }
 
 
+def teclado_cotizacion():
+    return {
+        "keyboard": [
+            [{"text": "🇧🇷➡️🇻🇪 Cotización Brasil → Venezuela"}],
+            [{"text": "🇻🇪➡️🇧🇷 Cotización Venezuela → Brasil"}],
+            [{"text": "🔙 Volver"}]
+        ],
+        "resize_keyboard": True,
+        "one_time_keyboard": False
+    }
+
+
 def teclado_brasil_venezuela():
     return {
         "keyboard": [
@@ -328,7 +340,98 @@ def processar_calculo(chat_id, texto):
 def processar_mensagem(chat_id, texto):
 
     # ----------------------------------------------------
-    # VOLVER — DEVE SER PROCESSADO ANTES DA CALCULADORA
+    # START — PRIORIDADE MÁXIMA
+    # Cancela qualquer operação em andamento.
+    # ----------------------------------------------------
+
+    if texto == "/start":
+
+        clientes.pop(chat_id, None)
+
+        enviar_mensagem(
+            chat_id,
+            "¡Hola! 👋 Bienvenido a MiguelFM.\n\n"
+            "¿Qué deseas hacer?",
+            teclado_inicio()
+        )
+
+        return True
+
+    # ----------------------------------------------------
+    # COTIZACIÓN — PRIORIDADE MÁXIMA
+    # Cancela qualquer operação em andamento.
+    # Vai diretamente para escolha da direção.
+    # ----------------------------------------------------
+
+    if texto == "/cotizacion":
+
+        clientes.pop(chat_id, None)
+
+        enviar_mensagem(
+            chat_id,
+            "Selecciona el tipo de cotización:",
+            teclado_cotizacion()
+        )
+
+        return True
+
+    # ----------------------------------------------------
+    # ATENDENTE — PRIORIDADE MÁXIMA
+    # Cancela qualquer operação em andamento.
+    # ----------------------------------------------------
+
+    if texto == "/atendente":
+
+        clientes.pop(chat_id, None)
+
+        enviar_mensagem(
+            chat_id,
+            "👤 Para hablar directamente con Miguel, "
+            "por favor espera las instrucciones de contacto."
+        )
+
+        return True
+
+    # ----------------------------------------------------
+    # AYUDA — PRIORIDADE MÁXIMA
+    # Cancela qualquer operação em andamento.
+    # ----------------------------------------------------
+
+    if texto == "/ayuda":
+
+        clientes.pop(chat_id, None)
+
+        enviar_mensagem(
+            chat_id,
+            "ℹ️ *Ayuda e información*\n\n"
+            "Selecciona una opción del menú para solicitar una cotización "
+            "o hablar directamente con Miguel."
+        )
+
+        return True
+
+    # ----------------------------------------------------
+    # FALAR COM MIGUEL — PRIORIDADE MÁXIMA
+    # Cancela qualquer operação em andamento.
+    # ----------------------------------------------------
+
+    if texto == "👤 Hablar directamente con Miguel":
+
+        clientes.pop(chat_id, None)
+
+        enviar_mensagem(
+            chat_id,
+            "👤 Para hablar directamente con Miguel, "
+            "por favor espera las instrucciones de contacto."
+        )
+
+        return True
+
+    # ----------------------------------------------------
+    # VOLVER
+    # Se estiver dentro de uma direção, retorna ao menu
+    # daquela direção.
+    # Caso contrário, retorna ao menu principal.
     # ----------------------------------------------------
 
     if texto == "🔙 Volver":
@@ -373,23 +476,6 @@ def processar_mensagem(chat_id, texto):
 
         if clientes[chat_id]["etapa"] == "aguardando_valor":
             return processar_calculo(chat_id, texto)
-
-    # ----------------------------------------------------
-    # MENU INICIAL
-    # ----------------------------------------------------
-
-    if texto == "/start":
-
-        clientes.pop(chat_id, None)
-
-        enviar_mensagem(
-            chat_id,
-            "¡Hola! 👋 Bienvenido a MiguelFM.\n\n"
-            "¿Qué deseas hacer?",
-            teclado_inicio()
-        )
-
-        return True
 
     # ----------------------------------------------------
     # BRASIL → VENEZUELA
@@ -464,22 +550,6 @@ def processar_mensagem(chat_id, texto):
     if texto == "🇧🇷 Reais a recibir":
 
         pedir_valor(chat_id, 6)
-
-        return True
-
-    # ----------------------------------------------------
-    # FALAR COM MIGUEL
-    # ----------------------------------------------------
-
-    if texto == "👤 Hablar directamente con Miguel":
-
-        clientes.pop(chat_id, None)
-
-        enviar_mensagem(
-            chat_id,
-            "👤 Para hablar directamente con Miguel, "
-            "por favor espera las instrucciones de contacto."
-        )
 
         return True
 
