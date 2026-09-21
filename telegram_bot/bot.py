@@ -127,9 +127,16 @@ def teclado_venezuela_brasil():
 # ============================================================
 
 def pedir_valor(chat_id, calculadora):
+
+    if calculadora <= 3:
+        direcao = "brasil_venezuela"
+    else:
+        direcao = "venezuela_brasil"
+
     clientes[chat_id] = {
         "etapa": "aguardando_valor",
-        "calculadora": calculadora
+        "calculadora": calculadora,
+        "direcao": direcao
     }
 
     if calculadora == 1:
@@ -173,6 +180,7 @@ def pedir_valor(chat_id, calculadora):
         return
 
     enviar_mensagem(chat_id, texto)
+
 
 # ============================================================
 # PROCESSAMENTO DAS CALCULADORAS
@@ -320,6 +328,44 @@ def processar_calculo(chat_id, texto):
 def processar_mensagem(chat_id, texto):
 
     # ----------------------------------------------------
+    # VOLVER — DEVE SER PROCESSADO ANTES DA CALCULADORA
+    # ----------------------------------------------------
+
+    if texto == "🔙 Volver":
+
+        cliente = clientes.get(chat_id)
+
+        if cliente and cliente.get("direcao") == "brasil_venezuela":
+
+            enviar_mensagem(
+                chat_id,
+                "🇧🇷➡️🇻🇪 *Brasil → Venezuela*\n\n"
+                "Selecciona el tipo de cotización:",
+                teclado_brasil_venezuela()
+            )
+
+        elif cliente and cliente.get("direcao") == "venezuela_brasil":
+
+            enviar_mensagem(
+                chat_id,
+                "🇻🇪➡️🇧🇷 *Venezuela → Brasil*\n\n"
+                "Selecciona el tipo de cotización:",
+                teclado_venezuela_brasil()
+            )
+
+        else:
+
+            enviar_mensagem(
+                chat_id,
+                "Volviendo al menú principal...",
+                teclado_inicio()
+            )
+
+        clientes.pop(chat_id, None)
+
+        return True
+
+    # ----------------------------------------------------
     # CLIENTE JÁ ESTÁ EM UMA CALCULADORA
     # ----------------------------------------------------
 
@@ -351,7 +397,10 @@ def processar_mensagem(chat_id, texto):
 
     if texto == "🇧🇷➡️🇻🇪 Cotización Brasil → Venezuela":
 
-        clientes.pop(chat_id, None)
+        clientes[chat_id] = {
+            "etapa": "menu",
+            "direcao": "brasil_venezuela"
+        }
 
         enviar_mensagem(
             chat_id,
@@ -386,7 +435,10 @@ def processar_mensagem(chat_id, texto):
 
     if texto == "🇻🇪➡️🇧🇷 Cotización Venezuela → Brasil":
 
-        clientes.pop(chat_id, None)
+        clientes[chat_id] = {
+            "etapa": "menu",
+            "direcao": "venezuela_brasil"
+        }
 
         enviar_mensagem(
             chat_id,
@@ -427,22 +479,6 @@ def processar_mensagem(chat_id, texto):
             chat_id,
             "👤 Para hablar directamente con Miguel, "
             "por favor espera las instrucciones de contacto."
-        )
-
-        return True
-
-    # ----------------------------------------------------
-    # VOLTAR
-    # ----------------------------------------------------
-
-    if texto == "🔙 Volver":
-
-        clientes.pop(chat_id, None)
-
-        enviar_mensagem(
-            chat_id,
-            "Volviendo al menú principal...",
-            teclado_inicio()
         )
 
         return True
