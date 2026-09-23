@@ -339,10 +339,35 @@ def processar_calculo(chat_id, texto):
 
 def processar_mensagem(chat_id, texto):
 
-    # ----------------------------------------------------
+    # Normaliza espaços acidentais enviados pelo Telegram.
+    texto = texto.strip()
+
+    # ========================================================
+    # PRIORIDADE ABSOLUTA — FALAR COM MIGUEL
+    #
+    # Deve funcionar independentemente do estado atual:
+    # menu principal, menu de cotização ou aguardando valor.
+    #
+    # O startswith() evita que pequenas diferenças posteriores
+    # no texto do botão façam a mensagem cair no calculador.
+    # ========================================================
+
+    if texto.startswith("👤 Hablar directamente con Miguel"):
+
+        clientes.pop(chat_id, None)
+
+        enviar_mensagem(
+            chat_id,
+            "👤 Para hablar directamente con Miguel, "
+            "toca en el siguiente enlace: https://wa.me/qr/BYH3M7JCHI7DA1"
+        )
+
+        return True
+
+    # --------------------------------------------------------
     # START — PRIORIDADE MÁXIMA
     # Cancela qualquer operação em andamento.
-    # ----------------------------------------------------
+    # --------------------------------------------------------
 
     if texto == "/start":
 
@@ -357,11 +382,11 @@ def processar_mensagem(chat_id, texto):
 
         return True
 
-    # ----------------------------------------------------
+    # --------------------------------------------------------
     # COTIZACIÓN — PRIORIDADE MÁXIMA
     # Cancela qualquer operação em andamento.
     # Vai diretamente para escolha da direção.
-    # ----------------------------------------------------
+    # --------------------------------------------------------
 
     if texto == "/cotizacion":
 
@@ -375,10 +400,10 @@ def processar_mensagem(chat_id, texto):
 
         return True
 
-    # ----------------------------------------------------
+    # --------------------------------------------------------
     # ATENDENTE — PRIORIDADE MÁXIMA
     # Cancela qualquer operação em andamento.
-    # ----------------------------------------------------
+    # --------------------------------------------------------
 
     if texto == "/atendente":
 
@@ -387,15 +412,15 @@ def processar_mensagem(chat_id, texto):
         enviar_mensagem(
             chat_id,
             "👤 Para hablar directamente con Miguel, "
-            "por favor espera las instrucciones de contacto."
+            "toca en el siguiente enlace: https://wa.me/qr/BYH3M7JCHI7DA1"
         )
 
         return True
 
-    # ----------------------------------------------------
+    # --------------------------------------------------------
     # AYUDA — PRIORIDADE MÁXIMA
     # Cancela qualquer operação em andamento.
-    # ----------------------------------------------------
+    # --------------------------------------------------------
 
     if texto == "/ayuda":
 
@@ -410,29 +435,12 @@ def processar_mensagem(chat_id, texto):
 
         return True
 
-    # ----------------------------------------------------
-    # FALAR COM MIGUEL — PRIORIDADE MÁXIMA
-    # Cancela qualquer operação em andamento.
-    # ----------------------------------------------------
-
-    if texto == "👤 Hablar directamente con Miguel":
-
-        clientes.pop(chat_id, None)
-
-        enviar_mensagem(
-            chat_id,
-            "👤 Para hablar directamente con Miguel, "
-            "toca en el siguiente enlace: https://wa.me/qr/BYH3M7JCHI7DA1"
-        )
-
-        return True
-
-    # ----------------------------------------------------
+    # --------------------------------------------------------
     # VOLVER
     # Se estiver dentro de uma direção, retorna ao menu
     # daquela direção.
     # Caso contrário, retorna ao menu principal.
-    # ----------------------------------------------------
+    # --------------------------------------------------------
 
     if texto == "🔙 Volver":
 
@@ -468,18 +476,18 @@ def processar_mensagem(chat_id, texto):
 
         return True
 
-    # ----------------------------------------------------
+    # --------------------------------------------------------
     # CLIENTE JÁ ESTÁ EM UMA CALCULADORA
-    # ----------------------------------------------------
+    # --------------------------------------------------------
 
     if chat_id in clientes:
 
         if clientes[chat_id]["etapa"] == "aguardando_valor":
             return processar_calculo(chat_id, texto)
 
-    # ----------------------------------------------------
+    # --------------------------------------------------------
     # BRASIL → VENEZUELA
-    # ----------------------------------------------------
+    # --------------------------------------------------------
 
     if texto == "🇧🇷➡️🇻🇪 Cotización Brasil → Venezuela":
 
@@ -515,9 +523,9 @@ def processar_mensagem(chat_id, texto):
 
         return True
 
-    # ----------------------------------------------------
+    # --------------------------------------------------------
     # VENEZUELA → BRASIL
-    # ----------------------------------------------------
+    # --------------------------------------------------------
 
     if texto == "🇻🇪➡️🇧🇷 Cotización Venezuela → Brasil":
 
@@ -553,9 +561,9 @@ def processar_mensagem(chat_id, texto):
 
         return True
 
-    # ----------------------------------------------------
+    # --------------------------------------------------------
     # MENSAGEM NÃO RECONHECIDA
-    # ----------------------------------------------------
+    # --------------------------------------------------------
 
     return False
 
