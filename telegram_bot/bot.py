@@ -326,8 +326,8 @@ def processar_calculo(chat_id, texto):
 
         enviar_mensagem(
             chat_id,
-            "❌ No pude realizar el cálculo.\n\n"
-            "Por favor escribe únicamente en numeros el valor solicitado o selecciona en el menú abajo ⬇️⬇️ o en el lateral ↖️↖️ alguna otra opción."
+            "❌ No conseguí realizar el cálculo.\n\n"
+            "Por favor escribe únicamente en números el valor solicitado; o selecciona en las opciones de abajo ⬇️⬇️ o en el menú lateral ↖️↖️ alguna otra opción."
         )
 
         return True
