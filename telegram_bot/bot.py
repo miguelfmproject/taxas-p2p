@@ -548,7 +548,7 @@ def processar_mensagem(chat_id, texto):
 
         return True
 
-    if texto == "🇻🇪 Bolívares a enviar":
+    if texto == "🇻🇪 Bolívares a enviar desde Vzla":
 
         pedir_valor(chat_id, 5)
 
