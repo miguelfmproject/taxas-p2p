@@ -554,7 +554,7 @@ def processar_mensagem(chat_id, texto):
 
         return True
 
-    if texto == "🇧🇷 Reais a recibir":
+    if texto == "🇧🇷 Reais a recibir en Brasil":
 
         pedir_valor(chat_id, 6)
 
