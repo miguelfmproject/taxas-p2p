@@ -543,8 +543,7 @@ def processar_mensagem(chat_id, texto):
 
         return True
 
-    if texto == "💵 Dólares BCV a Reais":
-
+    if texto == "💵 Equivalente en Dólares BCV a convertir en Reais":
         pedir_valor(chat_id, 4)
 
         return True
