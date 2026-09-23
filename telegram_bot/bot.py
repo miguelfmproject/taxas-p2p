@@ -351,7 +351,7 @@ def processar_mensagem(chat_id, texto):
         enviar_mensagem(
             chat_id,
             "¡Hola! 👋 Bienvenido al bot secuencial automatizado de 🔰MiguelFM Remesas.\n\n"
-            "¿Qué deseas hacer?",
+            "Por favor selecciona en las opciones abajo ⬇️⬇️⬇️ lo que deseas hacer.",
             teclado_inicio()
         )
 
