@@ -327,7 +327,7 @@ def processar_calculo(chat_id, texto):
         enviar_mensagem(
             chat_id,
             "❌ No pude realizar el cálculo.\n\n"
-            "Por favor, verifica el valor informado e inténtalo nuevamente."
+            "Por favor escribe únicamente en numeros el valor solicitado o selecciona en el menú abajo ⬇️⬇️ o en el lateral ↖️↖️ alguna otra opción."
         )
 
         return True
@@ -405,7 +405,7 @@ def processar_mensagem(chat_id, texto):
     # Cancela qualquer operação em andamento.
     # --------------------------------------------------------
 
-    if texto == "/atendente":
+    if texto == "/atendiente":
 
         clientes.pop(chat_id, None)
 
