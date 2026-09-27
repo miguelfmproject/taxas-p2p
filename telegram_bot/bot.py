@@ -405,25 +405,27 @@ def processar_mensagem(chat_id, texto):
     # --------------------------------------------------------
 
     if texto == "/start":
-    clientes.pop(chat_id, None)
+       
+        clientes.pop(chat_id, None)
 
-    enviar_mensagem(
-        chat_id,
-        "¡Hola! 👋 Bienvenido al bot secuencial automatizado de 🔰MiguelFM Remesas."
-    )
+        enviar_mensagem(
+         chat_id,
+         "¡Hola! 👋 Bienvenido al bot secuencial automatizado de 🔰MiguelFM Remesas."
+        )
 
-    enviar_mensagem(
-        chat_id,
-        mensagem_taxas_publicadas()
-    )
+        enviar_mensagem(
+         chat_id,
+         mensagem_taxas_publicadas()
+        )
 
-    enviar_mensagem(
-        chat_id,
-        "Por favor selecciona en las opciones abajo ⬇️⬇️⬇️ lo que deseas hacer.",
-        teclado_inicio()
-    )
+        enviar_mensagem(
+         chat_id,
+         "Por favor selecciona en las opciones abajo ⬇️⬇️⬇️ lo que deseas hacer.",
+         teclado_inicio()
+        )
 
-    return True
+        return True
+    
 
     # --------------------------------------------------------
     # COTIZACIÓN — PRIORIDADE MÁXIMA
