@@ -90,10 +90,22 @@ def mensagem_taxas_publicadas():
     taxa_brl_ves = taxas["taxa_brl_ves"]
     taxa_ves_brl = taxas["taxa_ves_brl"]
 
-    taxa_brl_ves_formatada = f"{taxa_brl_ves:,.2f}".replace(",", "X").replace(".", ",").replace("X", ".")
-    taxa_ves_brl_formatada = f"{taxa_ves_brl:,.2f}".replace(",", "X").replace(".", ",").replace("X", ".")
+    taxa_brl_ves_formatada = (
+        f"{taxa_brl_ves:,.2f}"
+        .replace(",", "X")
+        .replace(".", ",")
+        .replace("X", ".")
+    )
+
+    taxa_ves_brl_formatada = (
+        f"{taxa_ves_brl:,.2f}"
+        .replace(",", "X")
+        .replace(".", ",")
+        .replace("X", ".")
+    )
 
     return (
+        "📊 *Tasas actuales:*\n\n"
         "*Enviando dinero*\n"
         "_______________\n"
         "🇧🇷 Tasa de *Brasil hacia Venezuela* 🇻🇪\n"
