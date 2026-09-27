@@ -84,6 +84,29 @@ def converter_entrada_decimal(texto):
     return texto
 
 
+def mensagem_taxas_publicadas():
+    taxas = ler_taxas_remitflow()
+
+    taxa_brl_ves = taxas["taxa_brl_ves"]
+    taxa_ves_brl = taxas["taxa_ves_brl"]
+
+    taxa_brl_ves_formatada = f"{taxa_brl_ves:,.2f}".replace(",", "X").replace(".", ",").replace("X", ".")
+    taxa_ves_brl_formatada = f"{taxa_ves_brl:,.2f}".replace(",", "X").replace(".", ",").replace("X", ".")
+
+    return (
+        "*Enviando dinero*\n"
+        "_______________\n"
+        "🇧🇷 Tasa de *Brasil hacia Venezuela* 🇻🇪\n"
+        f"1 Real = {taxa_brl_ves_formatada} Bolívares\n"
+        "_____________________\n"
+        "🇻🇪 Tasa de *Venezuela hacia Brasil* 🇧🇷\n"
+        f"{taxa_ves_brl_formatada} Bolívares = 1 Real\n"
+        "_____________________\n"
+        "- Contactos: (45)984182194 / (45)988371328\n"
+        "- *Bot de Cotización automática:* https://t.me/MiguelFM_bot"
+    )
+
+
 def teclado_inicio():
     return {
         "keyboard": [
