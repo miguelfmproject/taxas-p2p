@@ -107,13 +107,13 @@ def mensagem_taxas_publicadas():
     return (
         "📊 *Tasas actuales:*\n\n"
         "Enviando dinero\n"
-        "••••••••••••••••\n"
+        "━━━━━━━━━━\n"
         "🇧🇷 Tasa de *Brasil hacia Venezuela* 🇻🇪\n"
         f"1 Real = *{taxa_brl_ves_formatada} Bolívares*\n"
-        "••••••••••••••••\n"
+        "━━━━━━━━━━\n"
         "🇻🇪 Tasa de *Venezuela hacia Brasil* 🇧🇷\n"
         f"*{taxa_ves_brl_formatada} Bolívares* = 1 Real\n"
-        "••••••••••••••••\n"
+        "━━━━━━━━━━\n"
         "★ Contactos: (45)984182194 / (45)988371328\n"
         "★ *Bot de Cotización automática:* https://t.me/MiguelFM_bot"
     )
