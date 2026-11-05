@@ -55,3 +55,55 @@ def criar_estrutura_banco():
 
     return True
     
+#####CADASTRO DE CLIENTES#####
+
+def salvar_cliente(
+    telegram_user_id,
+    username=None,
+    first_name=None,
+    last_name=None,
+    phone=None
+):
+    """
+    Cadastra um cliente ou atualiza seus dados existentes.
+    Retorna o ID interno do cliente no PostgreSQL.
+    """
+
+    sql = """
+        INSERT INTO customers (
+            telegram_user_id,
+            username,
+            first_name,
+            last_name,
+            phone
+        )
+        VALUES (%s, %s, %s, %s, %s)
+
+        ON CONFLICT (telegram_user_id)
+        DO UPDATE SET
+            username = COALESCE(EXCLUDED.username, customers.username),
+            first_name = COALESCE(EXCLUDED.first_name, customers.first_name),
+            last_name = COALESCE(EXCLUDED.last_name, customers.last_name),
+            phone = COALESCE(EXCLUDED.phone, customers.phone),
+            updated_at = NOW()
+
+        RETURNING id;
+    """
+
+    with obter_conexao() as conexao:
+        with conexao.cursor() as cursor:
+            cursor.execute(
+                sql,
+                (
+                    telegram_user_id,
+                    username,
+                    first_name,
+                    last_name,
+                    phone
+                )
+            )
+
+            resultado = cursor.fetchone()
+
+    return resultado[0]
+    
