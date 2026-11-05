@@ -182,6 +182,27 @@ def main():
         "Iniciando RemitFlow Telegram Webhook..."
     )
 
+    print(
+        "\nTestando conexão com PostgreSQL..."
+    )
+
+    try:
+
+        if testar_conexao():
+            print(
+                "POSTGRESQL: conexão estabelecida com sucesso."
+            )
+        else:
+            print(
+                "POSTGRESQL: teste de conexão não confirmado."
+            )
+
+    except Exception as erro:
+
+        print(
+            f"ERRO NA CONEXÃO COM POSTGRESQL: {erro}"
+        )
+
     registrar_webhook()
 
     servidor = ThreadingHTTPServer(
