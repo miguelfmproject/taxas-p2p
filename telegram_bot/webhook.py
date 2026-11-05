@@ -2,8 +2,7 @@ import os
 import json
 from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
 from urllib.request import Request, urlopen
-from telegram_bot.database import testar_conexao
-
+from telegram_bot.database import testar_conexao, criar_estrutura_banco
 
 from telegram_bot.bot import processar_mensagem
 
