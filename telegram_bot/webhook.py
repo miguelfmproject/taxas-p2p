@@ -2,7 +2,11 @@ import os
 import json
 from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
 from urllib.request import Request, urlopen
-from telegram_bot.database import testar_conexao, criar_estrutura_banco
+from telegram_bot.database import (
+    testar_conexao,
+    criar_estrutura_banco,
+    salvar_cliente
+)
 
 from telegram_bot.bot import processar_mensagem
 
@@ -85,7 +89,32 @@ class TelegramWebhookHandler(BaseHTTPRequestHandler):
 
                 texto = mensagem.get("text")
 
+
                 if chat_id and texto:
+
+                    usuario = mensagem.get("from", {})
+                    telegram_user_id = usuario.get("id")
+
+                    if telegram_user_id:
+
+                        try:
+
+                            cliente_id = salvar_cliente(
+                                telegram_user_id=telegram_user_id,
+                                username=usuario.get("username"),
+                                first_name=usuario.get("first_name"),
+                                last_name=usuario.get("last_name")
+                            )
+
+                            print(
+                                f"Cliente {cliente_id} cadastrado/atualizado no PostgreSQL."
+                            )
+
+                        except Exception as erro:
+
+                            print(
+                                f"ERRO AO SALVAR CLIENTE NO POSTGRESQL: {erro}"
+                            )
 
                     print(
                         f"Mensagem recebida de {chat_id}: {texto}"
@@ -95,6 +124,7 @@ class TelegramWebhookHandler(BaseHTTPRequestHandler):
                         chat_id,
                         texto
                     )
+
 
             self.send_response(200)
             self.end_headers()
