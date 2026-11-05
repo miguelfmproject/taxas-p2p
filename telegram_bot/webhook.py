@@ -201,6 +201,22 @@ def main():
         print(
             f"ERRO NA CONEXÃO COM POSTGRESQL: {erro}"
         )
+    print(
+        "\nVerificando estrutura do banco de dados..."
+    )
+
+    try:
+
+        if criar_estrutura_banco():
+            print(
+                "POSTGRESQL: tabelas criadas ou verificadas com sucesso."
+            )
+
+    except Exception as erro:
+
+            print(
+            f"ERRO AO CRIAR ESTRUTURA DO BANCO: {erro}"
+            )
 
     registrar_webhook()
 
