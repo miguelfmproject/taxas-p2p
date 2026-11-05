@@ -214,9 +214,9 @@ def main():
 
     except Exception as erro:
 
-            print(
+        print(
             f"ERRO AO CRIAR ESTRUTURA DO BANCO: {erro}"
-            )
+        )
 
     registrar_webhook()
 
