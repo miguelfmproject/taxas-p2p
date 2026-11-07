@@ -107,3 +107,39 @@ def salvar_cliente(
 
     return resultado[0]
     
+#####REGISTRO E MANUTENÇÃO DE CONVERSAS#####
+
+def obter_ou_criar_conversa(customer_id, chat_id):
+    """
+    Localiza uma conversa existente ou cria uma nova.
+    Retorna o ID interno da conversa no PostgreSQL.
+    """
+
+    sql = """
+        INSERT INTO conversations (
+            customer_id,
+            chat_id
+        )
+        VALUES (%s, %s)
+
+        ON CONFLICT (chat_id)
+        DO UPDATE SET
+            customer_id = EXCLUDED.customer_id,
+            updated_at = NOW()
+
+        RETURNING id;
+    """
+
+    with obter_conexao() as conexao:
+        with conexao.cursor() as cursor:
+            cursor.execute(
+                sql,
+                (
+                    customer_id,
+                    chat_id
+                )
+            )
+
+            resultado = cursor.fetchone()
+
+    return resultado[0]
