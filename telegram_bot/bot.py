@@ -17,6 +17,10 @@ from telegram_bot.remitflow_engine import (
 )
 
 from sheets import ler_taxas_remitflow
+from telegram_bot.database import (
+    obter_conversa_por_chat_id,
+    salvar_mensagem
+)
 
 
 TOKEN = __import__("os").getenv("TELEGRAM_BOT_TOKEN")
