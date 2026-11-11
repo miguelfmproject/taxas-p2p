@@ -143,3 +143,49 @@ def obter_ou_criar_conversa(customer_id, chat_id):
             resultado = cursor.fetchone()
 
     return resultado[0]
+
+
+def salvar_mensagem(
+    conversation_id,
+    telegram_message_id=None,
+    direction="incoming",
+    message_type="text",
+    content=None,
+    file_id=None
+):
+    """
+    Registra uma mensagem no histórico da conversa.
+    Retorna o ID interno da mensagem no PostgreSQL.
+    """
+
+    sql = """
+        INSERT INTO messages (
+            conversation_id,
+            telegram_message_id,
+            direction,
+            message_type,
+            content,
+            file_id
+        )
+        VALUES (%s, %s, %s, %s, %s, %s)
+        RETURNING id;
+    """
+
+    with obter_conexao() as conexao:
+        with conexao.cursor() as cursor:
+            cursor.execute(
+                sql,
+                (
+                    conversation_id,
+                    telegram_message_id,
+                    direction,
+                    message_type,
+                    content,
+                    file_id
+                )
+            )
+
+            resultado = cursor.fetchone()
+
+    return resultado[0]
+    
