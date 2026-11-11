@@ -188,4 +188,31 @@ def salvar_mensagem(
             resultado = cursor.fetchone()
 
     return resultado[0]
+
+
+def obter_conversa_por_chat_id(chat_id):
+    """
+    Localiza o ID interno da conversa pelo chat_id do Telegram.
+    Retorna None se a conversa ainda não existir.
+    """
+
+    sql = """
+        SELECT id
+        FROM conversations
+        WHERE chat_id = %s;
+    """
+
+    with obter_conexao() as conexao:
+        with conexao.cursor() as cursor:
+            cursor.execute(
+                sql,
+                (chat_id,)
+            )
+
+            resultado = cursor.fetchone()
+
+    if resultado:
+        return resultado[0]
+
+    return None
     
