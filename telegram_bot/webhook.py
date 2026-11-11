@@ -96,6 +96,7 @@ class TelegramWebhookHandler(BaseHTTPRequestHandler):
                     usuario = mensagem.get("from", {})
                     telegram_user_id = usuario.get("id")
 
+
                     if telegram_user_id:
 
                         try:
@@ -120,10 +121,22 @@ class TelegramWebhookHandler(BaseHTTPRequestHandler):
                                 f"Conversa {conversa_id} localizada/criada no PostgreSQL."
                             )
 
+                            mensagem_id = salvar_mensagem(
+                                conversation_id=conversa_id,
+                                telegram_message_id=mensagem.get("message_id"),
+                                direction="incoming",
+                                message_type="text",
+                                content=texto
+                            )
+
+                            print(
+                                f"Mensagem {mensagem_id} registrada no PostgreSQL."
+                            )
+
                         except Exception as erro:
 
                             print(
-                                f"ERRO AO REGISTRAR CLIENTE OU CONVERSA NO POSTGRESQL: {erro}"
+                                f"ERRO AO REGISTRAR CLIENTE, CONVERSA OU MENSAGEM: {erro}"
                             )
 
                     print(
