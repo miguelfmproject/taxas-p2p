@@ -660,11 +660,34 @@ def processar_mensagem(chat_id, texto):
 
         return True
 
+    
     # --------------------------------------------------------
     # MENSAGEM NÃO RECONHECIDA
     # --------------------------------------------------------
 
-    return False
+    cliente = clientes.get(chat_id)
+
+    if cliente and cliente.get("direcao") == "brasil_venezuela":
+
+        teclado = teclado_brasil_venezuela()
+
+    elif cliente and cliente.get("direcao") == "venezuela_brasil":
+
+        teclado = teclado_venezuela_brasil()
+
+    else:
+
+        teclado = teclado_inicio()
+
+    enviar_mensagem(
+        chat_id,
+        "🤖 No conseguí identificar tu mensaje.\n\n"
+        "Por favor, selecciona una de las opciones disponibles "
+        "en el menú de abajo ⬇️ para continuar con tu atención.",
+        teclado
+    )
+
+    return True
 
 
 # ============================================================
