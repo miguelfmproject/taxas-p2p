@@ -6,7 +6,8 @@ from telegram_bot.database import (
     testar_conexao,
     criar_estrutura_banco,
     salvar_cliente,
-    obter_ou_criar_conversa
+    obter_ou_criar_conversa,
+    salvar_mensagem
 )
 
 from telegram_bot.bot import processar_mensagem
