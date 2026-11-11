@@ -38,6 +38,7 @@ clientes = {}
 # FUNÇÕES AUXILIARES
 # ============================================================
 
+
 def enviar_mensagem(chat_id, texto, teclado=None):
     dados = {
         "chat_id": chat_id,
@@ -48,11 +49,62 @@ def enviar_mensagem(chat_id, texto, teclado=None):
     if teclado:
         dados["reply_markup"] = json.dumps(teclado)
 
-    requests.post(
-        f"{BASE_URL}/sendMessage",
-        data=dados,
-        timeout=40
-    )
+    try:
+
+        resposta = requests.post(
+            f"{BASE_URL}/sendMessage",
+            data=dados,
+            timeout=40
+        )
+
+        resposta.raise_for_status()
+
+        resultado = resposta.json()
+
+        if not resultado.get("ok"):
+            print(
+                f"ERRO AO ENVIAR MENSAGEM PELO TELEGRAM: {resultado}"
+            )
+            return
+
+        mensagem_enviada = resultado.get("result", {})
+        telegram_message_id = mensagem_enviada.get("message_id")
+
+        try:
+
+            conversa_id = obter_conversa_por_chat_id(chat_id)
+
+            if conversa_id:
+
+                mensagem_id = salvar_mensagem(
+                    conversation_id=conversa_id,
+                    telegram_message_id=telegram_message_id,
+                    direction="outgoing",
+                    message_type="text",
+                    content=texto
+                )
+
+                print(
+                    f"Resposta {mensagem_id} registrada no PostgreSQL."
+                )
+
+            else:
+
+                print(
+                    f"AVISO: conversa não encontrada para o chat {chat_id}."
+                )
+
+        except Exception as erro:
+
+            print(
+                f"ERRO AO REGISTRAR RESPOSTA NO POSTGRESQL: {erro}"
+            )
+
+    except Exception as erro:
+
+        print(
+            f"ERRO AO ENVIAR MENSAGEM PELO TELEGRAM: {erro}"
+        )
 
 
 def ler_taxas():
