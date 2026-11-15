@@ -429,6 +429,7 @@ def processar_calculo(chat_id, texto):
                 print(
                     f"Cotação {cotacao_id} registrada no PostgreSQL."
                 )
+                cliente["ultima_cotacao_id"] = cotacao_id
 
             else:
 
