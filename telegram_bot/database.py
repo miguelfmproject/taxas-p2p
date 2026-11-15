@@ -275,3 +275,31 @@ def salvar_cotacao(
             resultado = cursor.fetchone()
 
     return resultado[0]
+
+
+##### REGISTRO DE OPERAÇÕES #####
+
+def criar_operacao(conversation_id):
+    """
+    Cria uma nova operação de remessa vinculada a uma conversa.
+    Retorna o ID interno da operação no PostgreSQL.
+    """
+
+    sql = """
+        INSERT INTO operations (
+            conversation_id
+        )
+        VALUES (%s)
+        RETURNING id;
+    """
+
+    with obter_conexao() as conexao:
+        with conexao.cursor() as cursor:
+            cursor.execute(
+                sql,
+                (conversation_id,)
+            )
+
+            resultado = cursor.fetchone()
+
+    return resultado[0]
