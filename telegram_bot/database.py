@@ -2,6 +2,9 @@ import os
 
 import psycopg
 
+import json
+from psycopg.types.json import Jsonb
+
 
 def obter_conexao():
     """
