@@ -392,6 +392,53 @@ def processar_calculo(chat_id, texto):
             return False
 
         # ----------------------------------------------------
+        # REGISTRAR COTAÇÃO NO POSTGRESQL
+        # ----------------------------------------------------
+
+        tipos_calculadora = {
+            1: "brasil_venezuela_reais_enviar",
+            2: "brasil_venezuela_dolares_receber",
+            3: "brasil_venezuela_bolivares_receber",
+            4: "venezuela_brasil_dolares_converter",
+            5: "venezuela_brasil_bolivares_enviar",
+            6: "venezuela_brasil_reais_receber"
+        }
+
+        try:
+
+            conversa_id = obter_conversa_por_chat_id(chat_id)
+
+            if conversa_id:
+
+                cotacao_id = salvar_cotacao(
+                    conversation_id=conversa_id,
+                    calculator_type=tipos_calculadora[calculadora],
+                    input_amount=valor,
+                    result_data=resultado,
+                    rate_snapshot={
+                        "taxa_brl_ves": taxa_brl_ves,
+                        "taxa_ves_brl": taxa_ves_brl,
+                        "taxa_bcv": taxa_bcv
+                    }
+                )
+
+                print(
+                    f"Cotação {cotacao_id} registrada no PostgreSQL."
+                )
+
+            else:
+
+                print(
+                    f"ERRO: conversa não encontrada para o chat {chat_id}."
+                )
+
+        except Exception as erro:
+
+            print(
+                f"ERRO AO REGISTRAR COTAÇÃO NO POSTGRESQL: {erro}"
+            )
+        
+        # ----------------------------------------------------
         # ENVIAR RESULTADO
         # ----------------------------------------------------
 
