@@ -219,3 +219,59 @@ def obter_conversa_por_chat_id(chat_id):
 
     return None
     
+
+##### REGISTRO DE COTAÇÕES #####
+
+def salvar_cotacao(
+    conversation_id,
+    calculator_type,
+    input_amount,
+    result_data,
+    rate_snapshot
+):
+    """
+    Registra uma cotação no PostgreSQL.
+    Preserva o resultado e as taxas utilizadas naquele momento.
+    Retorna o ID interno da cotação.
+    """
+
+    resultado_json = Jsonb(
+        json.loads(
+            json.dumps(result_data, default=str)
+        )
+    )
+
+    taxas_json = Jsonb(
+        json.loads(
+            json.dumps(rate_snapshot, default=str)
+        )
+    )
+
+    sql = """
+        INSERT INTO quotes (
+            conversation_id,
+            calculator_type,
+            input_amount,
+            result_data,
+            rate_snapshot
+        )
+        VALUES (%s, %s, %s, %s, %s)
+        RETURNING id;
+    """
+
+    with obter_conexao() as conexao:
+        with conexao.cursor() as cursor:
+            cursor.execute(
+                sql,
+                (
+                    conversation_id,
+                    calculator_type,
+                    input_amount,
+                    resultado_json,
+                    taxas_json
+                )
+            )
+
+            resultado = cursor.fetchone()
+
+    return resultado[0]
