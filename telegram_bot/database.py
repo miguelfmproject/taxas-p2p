@@ -355,6 +355,66 @@ def vincular_cotacao_operacao(operation_id, quote_id):
 
     return resultado[0]
 
+
+def criar_operacao_com_cotacao(conversation_id, quote_id):
+    """
+    Cria uma operação e vincula a cotação informada.
+    As duas ações são confirmadas na mesma transação.
+    """
+
+    sql = """
+        INSERT INTO operations (
+            conversation_id
+        )
+        SELECT conversation_id
+        FROM quotes
+        WHERE
+            id = %s
+            AND conversation_id = %s
+        RETURNING id;
+    """
+
+    with obter_conexao() as conexao:
+        with conexao.cursor() as cursor:
+
+            cursor.execute(
+                sql,
+                (
+                    quote_id,
+                    conversation_id
+                )
+            )
+
+            resultado = cursor.fetchone()
+
+            if not resultado:
+                raise ValueError(
+                    "Cotação inexistente ou pertencente "
+                    "a outra conversa."
+                )
+
+            operation_id = resultado[0]
+
+            cursor.execute(
+                """
+                INSERT INTO operation_quotes (
+                    operation_id,
+                    quote_id
+                )
+                VALUES (%s, %s)
+                RETURNING id;
+                """,
+                (
+                    operation_id,
+                    quote_id
+                )
+            )
+
+            vinculo_id = cursor.fetchone()[0]
+
+    return operation_id, vinculo_id
+    
+
 ##### CONSULTA DE COTAÇÕES #####
 
 def obter_ultima_cotacao(conversation_id):
