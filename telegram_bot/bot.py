@@ -458,7 +458,11 @@ def processar_calculo(chat_id, texto):
             teclado
         )
 
-        clientes.pop(chat_id, None)
+        clientes[chat_id] = {
+            "etapa": "cotacao_disponivel",
+            "direcao": cliente["direcao"],
+            "ultima_cotacao_id": cliente.get("ultima_cotacao_id")
+        }
 
         return True
 
