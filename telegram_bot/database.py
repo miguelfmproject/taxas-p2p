@@ -303,3 +303,54 @@ def criar_operacao(conversation_id):
             resultado = cursor.fetchone()
 
     return resultado[0]
+
+
+def vincular_cotacao_operacao(operation_id, quote_id):
+    """
+    Vincula uma cotação a uma operação.
+    Impede duplicidade e verifica se ambos pertencem
+    à mesma conversa.
+    Retorna o ID do vínculo.
+    """
+
+    sql = """
+        INSERT INTO operation_quotes (
+            operation_id,
+            quote_id
+        )
+        SELECT
+            o.id,
+            q.id
+        FROM operations o
+        INNER JOIN quotes q
+            ON q.conversation_id = o.conversation_id
+        WHERE
+            o.id = %s
+            AND q.id = %s
+
+        ON CONFLICT (operation_id, quote_id)
+        DO UPDATE SET
+            operation_id = EXCLUDED.operation_id
+
+        RETURNING id;
+    """
+
+    with obter_conexao() as conexao:
+        with conexao.cursor() as cursor:
+            cursor.execute(
+                sql,
+                (
+                    operation_id,
+                    quote_id
+                )
+            )
+
+            resultado = cursor.fetchone()
+
+    if not resultado:
+        raise ValueError(
+            "Operação ou cotação inexistente, "
+            "ou pertencente a conversas diferentes."
+        )
+
+    return resultado[0]
