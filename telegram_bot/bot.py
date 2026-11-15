@@ -415,7 +415,7 @@ def processar_calculo(chat_id, texto):
                 cotacao_id = salvar_cotacao(
                     conversation_id=conversa_id,
                     calculator_type=tipos_calculadora[calculadora],
-                    input_amount=valor,
+                    input_amount=Decimal(valor),
                     result_data=resultado,
                     rate_snapshot={
                         "taxa_brl_ves": taxa_brl_ves,
