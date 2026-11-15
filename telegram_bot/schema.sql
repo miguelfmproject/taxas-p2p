@@ -54,3 +54,55 @@ CREATE INDEX IF NOT EXISTS idx_quotes_conversation
 
 CREATE INDEX IF NOT EXISTS idx_customers_username
     ON customers(username);
+
+-- ============================================================
+-- OPERAÇÕES DE REMESSA
+-- ============================================================
+
+CREATE TABLE IF NOT EXISTS operations (
+    id BIGSERIAL PRIMARY KEY,
+    conversation_id BIGINT NOT NULL
+        REFERENCES conversations(id),
+
+    status VARCHAR(30) NOT NULL DEFAULT 'created',
+
+    created_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
+    updated_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
+);
+
+
+-- ============================================================
+-- COTAÇÕES VINCULADAS ÀS OPERAÇÕES
+-- ============================================================
+
+CREATE TABLE IF NOT EXISTS operation_quotes (
+    id BIGSERIAL PRIMARY KEY,
+
+    operation_id BIGINT NOT NULL
+        REFERENCES operations(id),
+
+    quote_id BIGINT NOT NULL
+        REFERENCES quotes(id),
+
+    created_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
+
+    CONSTRAINT operation_quotes_unique
+        UNIQUE (operation_id, quote_id)
+);
+
+
+-- ============================================================
+-- ÍNDICES
+-- ============================================================
+
+CREATE INDEX IF NOT EXISTS idx_operations_conversation
+    ON operations(conversation_id);
+
+CREATE INDEX IF NOT EXISTS idx_operations_status
+    ON operations(status);
+
+CREATE INDEX IF NOT EXISTS idx_operation_quotes_operation
+    ON operation_quotes(operation_id);
+
+CREATE INDEX IF NOT EXISTS idx_operation_quotes_quote
+    ON operation_quotes(quote_id);
