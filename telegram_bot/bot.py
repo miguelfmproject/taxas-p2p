@@ -23,7 +23,8 @@ from telegram_bot.database import (
     salvar_cotacao,
     criar_operacao,
     vincular_cotacao_operacao,
-    obter_ultima_cotacao
+    obter_ultima_cotacao,
+    criar_operacao_com_cotacao
 )
 
 from decimal import Decimal
