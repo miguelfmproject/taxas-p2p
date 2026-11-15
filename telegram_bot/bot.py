@@ -20,7 +20,9 @@ from sheets import ler_taxas_remitflow
 from telegram_bot.database import (
     obter_conversa_por_chat_id,
     salvar_mensagem,
-    salvar_cotacao
+    salvar_cotacao,
+    criar_operacao,
+    vincular_cotacao_operacao
 )
 
 from decimal import Decimal
