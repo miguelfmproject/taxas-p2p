@@ -146,6 +146,47 @@ def converter_entrada_decimal(texto):
     return texto
 
 
+def recuperar_ultima_cotacao_cliente(chat_id):
+    """
+    Recupera a última cotação do cliente no PostgreSQL
+    e restaura o estado necessário no bot.
+    """
+
+    conversa_id = obter_conversa_por_chat_id(chat_id)
+
+    if not conversa_id:
+        return None
+
+    cotacao = obter_ultima_cotacao(conversa_id)
+
+    if not cotacao:
+        return None
+
+    calculator_type = cotacao["calculator_type"]
+
+    if calculator_type.startswith("brasil_venezuela"):
+        direcao = "brasil_venezuela"
+
+    elif calculator_type.startswith("venezuela_brasil"):
+        direcao = "venezuela_brasil"
+
+    else:
+        return None
+
+    clientes[chat_id] = {
+        "etapa": "cotacao_disponivel",
+        "direcao": direcao,
+        "ultima_cotacao_id": cotacao["id"]
+    }
+
+    print(
+        f"Cotação {cotacao['id']} recuperada do PostgreSQL "
+        f"para o chat {chat_id}."
+    )
+
+    return cotacao
+
+
 def mensagem_taxas_publicadas():
     taxas = ler_taxas_remitflow()
 
