@@ -354,3 +354,48 @@ def vincular_cotacao_operacao(operation_id, quote_id):
         )
 
     return resultado[0]
+
+##### CONSULTA DE COTAÇÕES #####
+
+def obter_ultima_cotacao(conversation_id):
+    """
+    Busca a cotação mais recente de uma conversa.
+    Retorna os dados da cotação ou None.
+    """
+
+    sql = """
+        SELECT
+            id,
+            calculator_type,
+            input_amount,
+            result_data,
+            rate_snapshot,
+            status,
+            created_at
+        FROM quotes
+        WHERE conversation_id = %s
+        ORDER BY created_at DESC, id DESC
+        LIMIT 1;
+    """
+
+    with obter_conexao() as conexao:
+        with conexao.cursor() as cursor:
+            cursor.execute(
+                sql,
+                (conversation_id,)
+            )
+
+            resultado = cursor.fetchone()
+
+    if not resultado:
+        return None
+
+    return {
+        "id": resultado[0],
+        "calculator_type": resultado[1],
+        "input_amount": resultado[2],
+        "result_data": resultado[3],
+        "rate_snapshot": resultado[4],
+        "status": resultado[5],
+        "created_at": resultado[6]
+    }
