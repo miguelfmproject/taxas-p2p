@@ -23,6 +23,8 @@ from telegram_bot.database import (
     salvar_cotacao
 )
 
+from decimal import Decimal
+
 
 TOKEN = __import__("os").getenv("TELEGRAM_BOT_TOKEN")
 BASE_URL = f"https://api.telegram.org/bot{TOKEN}"
