@@ -475,6 +475,8 @@ def processar_calculo(chat_id, texto):
         # REGISTRAR COTAÇÃO NO POSTGRESQL
         # ----------------------------------------------------
 
+        cliente["ultima_cotacao_id"] = None
+
         tipos_calculadora = {
             1: "brasil_venezuela_reais_enviar",
             2: "brasil_venezuela_dolares_receber",
