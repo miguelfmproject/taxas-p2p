@@ -358,43 +358,99 @@ def vincular_cotacao_operacao(operation_id, quote_id):
 
 def criar_operacao_com_cotacao(conversation_id, quote_id):
     """
-    Cria uma operação e vincula a cotação informada.
-    As duas ações são confirmadas na mesma transação.
-    """
-
-    sql = """
-        INSERT INTO operations (
-            conversation_id
-        )
-        SELECT conversation_id
-        FROM quotes
-        WHERE
-            id = %s
-            AND conversation_id = %s
-        RETURNING id;
+    Cria uma operação e vincula a cotação.
+    Se já existir uma operação criada para essa cotação,
+    reutiliza a operação existente.
     """
 
     with obter_conexao() as conexao:
         with conexao.cursor() as cursor:
 
+            # Bloqueia a conversa durante a operação
+            # para evitar criações simultâneas duplicadas.
             cursor.execute(
-                sql,
+                """
+                SELECT id
+                FROM conversations
+                WHERE id = %s
+                FOR UPDATE;
+                """,
+                (conversation_id,)
+            )
+
+            conversa = cursor.fetchone()
+
+            if not conversa:
+                raise ValueError(
+                    "Conversa não encontrada."
+                )
+
+            # Confirma que a cotação pertence à conversa.
+            cursor.execute(
+                """
+                SELECT id
+                FROM quotes
+                WHERE
+                    id = %s
+                    AND conversation_id = %s;
+                """,
                 (
                     quote_id,
                     conversation_id
                 )
             )
 
-            resultado = cursor.fetchone()
+            cotacao = cursor.fetchone()
 
-            if not resultado:
+            if not cotacao:
                 raise ValueError(
                     "Cotação inexistente ou pertencente "
                     "a outra conversa."
                 )
 
-            operation_id = resultado[0]
+            # Procura uma operação ainda criada
+            # e já vinculada à mesma cotação.
+            cursor.execute(
+                """
+                SELECT
+                    o.id,
+                    oq.id
+                FROM operations o
+                INNER JOIN operation_quotes oq
+                    ON oq.operation_id = o.id
+                WHERE
+                    o.conversation_id = %s
+                    AND oq.quote_id = %s
+                    AND o.status = 'created'
+                ORDER BY o.id DESC
+                LIMIT 1;
+                """,
+                (
+                    conversation_id,
+                    quote_id
+                )
+            )
 
+            existente = cursor.fetchone()
+
+            if existente:
+                return existente[0], existente[1]
+
+            # Se não existir, cria uma nova operação.
+            cursor.execute(
+                """
+                INSERT INTO operations (
+                    conversation_id
+                )
+                VALUES (%s)
+                RETURNING id;
+                """,
+                (conversation_id,)
+            )
+
+            operation_id = cursor.fetchone()[0]
+
+            # Vincula a cotação à nova operação.
             cursor.execute(
                 """
                 INSERT INTO operation_quotes (
