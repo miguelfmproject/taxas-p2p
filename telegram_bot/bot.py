@@ -677,6 +677,79 @@ def processar_mensagem(chat_id, texto):
         return True
 
     # --------------------------------------------------------
+    # INICIAR OPERAÇÃO — VER DADOS PARA PAGAR
+    # --------------------------------------------------------
+
+    if texto == "💳 Ver datos para pagar":
+
+        try:
+
+            cliente = clientes.get(chat_id)
+
+            if not cliente or not cliente.get("ultima_cotacao_id"):
+
+                cotacao = recuperar_ultima_cotacao_cliente(
+                    chat_id
+                )
+
+                if not cotacao:
+
+                    enviar_mensagem(
+                        chat_id,
+                        "❌ No encontré una cotización disponible. "
+                        "Por favor, realiza una nueva cotización."
+                    )
+
+                    return True
+
+                cliente = clientes.get(chat_id)
+
+            conversa_id = obter_conversa_por_chat_id(
+                chat_id
+            )
+
+            if not conversa_id:
+
+                raise ValueError(
+                    "Conversa não encontrada."
+                )
+
+            operation_id, vinculo_id = criar_operacao_com_cotacao(
+                conversa_id,
+                cliente["ultima_cotacao_id"]
+            )
+
+            cliente["etapa"] = "operacao_iniciada"
+            cliente["operation_id"] = operation_id
+
+            print(
+                f"Operação {operation_id} iniciada "
+                f"com a cotação {cliente['ultima_cotacao_id']}."
+            )
+
+            enviar_mensagem(
+                chat_id,
+                "✅ *Tu solicitud de remesa ha sido registrada.*\n\n"
+                "En breve recibirás las instrucciones para realizar "
+                "el pago.\n\n"
+                "Si necesitas ayuda, puedes hablar directamente con Miguel."
+            )
+
+        except Exception as erro:
+
+            print(
+                f"ERRO AO INICIAR OPERAÇÃO: {erro}"
+            )
+
+            enviar_mensagem(
+                chat_id,
+                "❌ No fue posible iniciar tu operación en este momento. "
+                "Por favor, intenta nuevamente o habla directamente con Miguel."
+            )
+
+        return True
+        
+    # --------------------------------------------------------
     # VOLVER
     # Se estiver dentro de uma direção, retorna ao menu
     # daquela direção.
