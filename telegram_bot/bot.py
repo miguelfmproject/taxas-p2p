@@ -272,6 +272,39 @@ def teclado_venezuela_brasil():
     }
 
 
+def teclado_cotacao_disponivel(direcao):
+
+    if direcao == "brasil_venezuela":
+
+        opcoes = [
+            [{"text": "💵 Reais a enviar para VZLA"}],
+            [{"text": "💵 Dólar BCV a recibir en VZLA"}],
+            [{"text": "🇻🇪 Bolívares a recibir en VZLA"}]
+        ]
+
+    else:
+
+        opcoes = [
+            [{"text": "💵 Equivalente en Dólares BCV a convertir en Reais"}],
+            [{"text": "🇻🇪 Bolívares a enviar desde Vzla"}],
+            [{"text": "🇧🇷 Reais a recibir en Brasil"}]
+        ]
+
+    opcoes.append(
+        [{"text": "💳 Ver datos para pagar"}]
+    )
+
+    opcoes.append(
+        [{"text": "🔙 Volver"}]
+    )
+
+    return {
+        "keyboard": opcoes,
+        "resize_keyboard": True,
+        "one_time_keyboard": False
+    }
+    
+
 # ============================================================
 # MENSAGENS DE ORIENTAÇÃO
 # ============================================================
