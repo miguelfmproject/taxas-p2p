@@ -523,10 +523,18 @@ def processar_calculo(chat_id, texto):
         # ENVIAR RESULTADO
         # ----------------------------------------------------
 
-        if calculadora <= 3:
-            teclado = teclado_brasil_venezuela()
-        else:
-            teclado = teclado_venezuela_brasil()
+if cliente.get("ultima_cotacao_id"):
+
+    teclado = teclado_cotacao_disponivel(
+        cliente["direcao"]
+    )
+
+else:
+
+    if calculadora <= 3:
+        teclado = teclado_brasil_venezuela()
+    else:
+        teclado = teclado_venezuela_brasil()
 
         enviar_mensagem(
             chat_id,
